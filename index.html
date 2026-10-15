@@ -21,10 +21,10 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-  <!-- Google Fonts: Inter & Playfair Display for Heritage Elegance -->
+  <!-- Google Fonts: Inter & Cinzel for Heritage Elegance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -81,6 +81,7 @@
       color: var(--text-dark);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      scroll-behavior: smooth;
     }
 
     input, textarea, select, button {
@@ -111,14 +112,14 @@
         border-radius: 36px;
         margin: 14px auto;
       }
-      .destinations-grid {
+      .destinations-grid:not(.compact-view) {
         display: grid !important;
         grid-template-columns: repeat(2, 1fr);
         gap: 18px;
       }
     }
 
-    /* Top Bar with Safe Area Top padding */
+    /* Top Bar with Enhanced Safe Area Top padding */
     .top-header {
       position: sticky;
       top: 0;
@@ -126,12 +127,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: calc(12px + var(--safe-top)) 16px 12px 16px;
-      background: rgba(247, 249, 253, 0.88);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 2px solid rgba(255, 255, 255, 0.8);
-      box-shadow: 0 6px 16px rgba(160, 175, 200, 0.1);
+      padding: calc(14px + var(--safe-top)) 16px 12px 16px;
+      background: rgba(247, 249, 253, 0.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 6px 20px rgba(160, 175, 200, 0.12);
+      transition: all 0.3s ease;
     }
 
     .brand-group {
@@ -192,7 +194,7 @@
 
     .brand-title {
       font-family: 'Cinzel', serif;
-      font-size: 1.08rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: #1e3a2b;
       letter-spacing: 0.4px;
@@ -201,7 +203,7 @@
     }
 
     .brand-subtitle {
-      font-size: 0.65rem;
+      font-size: 0.64rem;
       font-weight: 700;
       color: #2a9d8f;
       letter-spacing: 0.8px;
@@ -228,7 +230,11 @@
       color: #475569;
       cursor: pointer;
       box-shadow: 2px 2px 6px rgba(0,0,0,0.08);
-      transition: all 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .sync-badge:active {
+      transform: scale(0.95);
     }
 
     .sync-dot {
@@ -267,15 +273,15 @@
       background: linear-gradient(135deg, #e0f2fe, #bae6fd);
       color: #0369a1;
       border: 2px solid #ffffff;
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 700;
-      padding: 6px 13px;
+      padding: 6px 12px;
       border-radius: var(--radius-full);
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 5px;
-      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
       box-shadow: 4px 4px 10px rgba(147, 197, 253, 0.45),
                   -3px -3px 8px rgba(255, 255, 255, 0.9),
                   inset 2px 2px 3px rgba(255, 255, 255, 0.8);
@@ -287,15 +293,16 @@
     }
 
     .btn-admin:active {
-      transform: translateY(1px) scale(0.98);
+      transform: translateY(1px) scale(0.96);
       box-shadow: var(--clay-btn-pressed);
     }
 
+    /* Extra bottom padding so floating navbar never blocks the last card */
     .tab-content {
       display: none;
       flex: 1;
-      padding-bottom: calc(96px + var(--safe-bottom));
-      animation: fadeInPage 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      padding-bottom: calc(120px + var(--safe-bottom));
+      animation: fadeInPage 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
 
     .tab-content.active {
@@ -303,30 +310,42 @@
     }
 
     @keyframes fadeInPage {
-      from { opacity: 0; transform: translateY(10px) scale(0.99); }
+      from { opacity: 0; transform: translateY(12px) scale(0.99); }
       to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes cardEntrance {
+      from {
+        opacity: 0;
+        transform: translateY(22px) scale(0.97);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     .hero-banner {
       position: relative;
-      margin: 16px 16px 20px;
-      height: 225px;
+      margin: 16px 16px 18px;
+      height: 215px;
       border-radius: var(--radius-lg);
       overflow: hidden;
       box-shadow: var(--clay-card-shadow);
       background-size: cover;
       background-position: center;
       border: 4px solid #ffffff;
+      transition: transform 0.35s ease;
     }
 
     .hero-banner-inner {
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(30, 58, 43, 0.15) 0%, rgba(30, 58, 43, 0.88) 100%);
+      background: linear-gradient(180deg, rgba(30, 58, 43, 0.12) 0%, rgba(30, 58, 43, 0.9) 100%);
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 22px;
+      padding: 20px 22px;
       color: white;
     }
 
@@ -337,9 +356,9 @@
       background: linear-gradient(135deg, #fef3c7, #fde68a);
       border: 2px solid #ffffff;
       color: #92400e;
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      padding: 5px 12px;
+      padding: 4px 12px;
       border-radius: var(--radius-full);
       width: fit-content;
       margin-bottom: 8px;
@@ -348,35 +367,35 @@
     }
 
     .hero-title {
-      font-size: 1.58rem;
+      font-size: 1.5rem;
       font-weight: 700;
-      line-height: 1.25;
+      line-height: 1.22;
       font-family: 'Cinzel', serif;
       margin-bottom: 5px;
       text-shadow: 0 2px 4px rgba(0,0,0,0.3);
     }
 
     .hero-desc {
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       color: rgba(255, 255, 255, 0.95);
       font-weight: 400;
       line-height: 1.4;
     }
 
     .search-box-wrap {
-      padding: 0 16px 16px 16px;
+      padding: 0 16px 14px 16px;
     }
 
     .search-container {
       position: relative;
       background: #ffffff;
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-full);
       border: 3px solid #ffffff;
       box-shadow: var(--clay-card-shadow);
       display: flex;
       align-items: center;
-      padding: 6px 14px;
-      transition: all 0.25s ease;
+      padding: 4px 16px;
+      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .search-container:focus-within {
@@ -389,6 +408,11 @@
     .search-container svg {
       color: #2a9d8f;
       flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .search-container:focus-within svg {
+      transform: scale(1.1);
     }
 
     .search-input {
@@ -397,7 +421,7 @@
       outline: none;
       background: transparent;
       padding: 10px;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 500;
       color: var(--text-dark);
     }
@@ -406,13 +430,30 @@
       color: #94a3b8;
     }
 
-    /* Category pills - Playful Clay Buttons */
+    .btn-clear-search {
+      background: #f1f5f9;
+      border: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      color: #64748b;
+      font-size: 0.75rem;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* Category pills - Playful Clay Buttons with Proper Edge Padding */
     .category-scroll {
       display: flex;
       gap: 10px;
-      padding: 2px 16px 16px 16px;
+      padding: 4px 16px 16px 16px;
       overflow-x: auto;
       scrollbar-width: none;
+      scroll-padding-left: 16px;
+      -webkit-overflow-scrolling: touch;
     }
 
     .category-scroll::-webkit-scrollbar {
@@ -432,7 +473,8 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      flex-shrink: 0;
+      transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
       box-shadow: var(--clay-btn-shadow);
     }
 
@@ -441,7 +483,7 @@
     }
 
     .cat-pill:active {
-      transform: translateY(1px);
+      transform: translateY(1px) scale(0.96);
       box-shadow: var(--clay-btn-pressed);
     }
 
@@ -453,25 +495,34 @@
                   -4px -4px 10px rgba(255, 255, 255, 0.8),
                   inset 2px 2px 4px rgba(255, 255, 255, 0.4),
                   inset -2px -2px 4px rgba(0, 0, 0, 0.15);
-      transform: scale(1.03);
+      transform: scale(1.04);
     }
 
+    /* List Toolbar: Title, Count, Sort & View Toggle */
     .section-title-wrap {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      padding: 6px 20px 12px 20px;
+      align-items: center;
+      padding: 4px 16px 14px 16px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .section-title-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .section-title {
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       font-weight: 800;
       color: var(--primary-dark);
       letter-spacing: -0.2px;
     }
 
     .section-subtitle {
-      font-size: 0.8rem;
+      font-size: 0.74rem;
       color: #e76f51;
       background: #ffebe6;
       padding: 4px 10px;
@@ -479,8 +530,60 @@
       border: 1.5px solid #ffffff;
       font-weight: 700;
       box-shadow: 2px 2px 6px rgba(231, 111, 81, 0.15);
+      white-space: nowrap;
     }
 
+    .list-controls-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sort-select {
+      background: #ffffff;
+      border: 2px solid #ffffff;
+      padding: 6px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      box-shadow: var(--clay-btn-shadow);
+      outline: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .view-toggle-group {
+      display: flex;
+      background: #eef2f6;
+      padding: 3px;
+      border-radius: var(--radius-full);
+      border: 2px solid #ffffff;
+      box-shadow: inset 2px 2px 5px rgba(0,0,0,0.06);
+    }
+
+    .btn-view-mode {
+      border: none;
+      background: transparent;
+      width: 30px;
+      height: 28px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .btn-view-mode.active {
+      background: #ffffff;
+      color: var(--primary-green);
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+      transform: scale(1.05);
+    }
+
+    /* Destinations List Container */
     .destinations-grid {
       display: flex;
       flex-direction: column;
@@ -488,14 +591,17 @@
       padding: 0 16px;
     }
 
+    /* Card UI (Large Default View) */
     .card-destination {
       background: #ffffff;
       border-radius: var(--radius-lg);
       overflow: hidden;
       border: 3.5px solid #ffffff;
       box-shadow: var(--clay-card-shadow);
-      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.32s ease;
       position: relative;
+      cursor: pointer;
+      animation: cardEntrance 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards;
     }
 
     .card-destination:hover {
@@ -505,17 +611,18 @@
     }
 
     .card-destination:active {
-      transform: scale(0.985);
+      transform: scale(0.98);
     }
 
     .card-media-wrap {
       position: relative;
-      height: 195px;
+      height: 190px;
       background: #e2e8f0;
       overflow: hidden;
       border-radius: 26px 26px 16px 16px;
       margin: 4px;
       width: calc(100% - 8px);
+      transition: all 0.3s ease;
     }
 
     .card-img {
@@ -523,18 +630,18 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.4s ease;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .card-destination:hover .card-img {
-      transform: scale(1.04);
+      transform: scale(1.05);
     }
 
     .card-category-badge {
       position: absolute;
       top: 12px;
       left: 12px;
-      background: linear-gradient(135deg, rgba(38, 70, 83, 0.85), rgba(42, 157, 143, 0.9));
+      background: linear-gradient(135deg, rgba(38, 70, 83, 0.88), rgba(42, 157, 143, 0.92));
       backdrop-filter: blur(8px);
       color: #fff;
       font-size: 0.72rem;
@@ -542,17 +649,20 @@
       padding: 5px 12px;
       border-radius: var(--radius-full);
       border: 2px solid #ffffff;
-      box-shadow: 2px 2px 8px rgba(0,0,0,0.25);
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.22);
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
     .btn-bookmark {
       position: absolute;
       top: 12px;
       right: 12px;
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      background: #ffffff;
+      background: rgba(255, 255, 255, 0.95);
       border: 2px solid #ffffff;
       display: flex;
       align-items: center;
@@ -560,15 +670,16 @@
       cursor: pointer;
       box-shadow: 4px 4px 10px rgba(0,0,0,0.15),
                   inset 1px 1px 2px rgba(255, 255, 255, 0.9);
-      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 3;
     }
 
     .btn-bookmark:hover {
-      transform: scale(1.1);
+      transform: scale(1.12);
     }
 
     .btn-bookmark:active {
-      transform: scale(0.95);
+      transform: scale(0.9);
       box-shadow: var(--clay-btn-pressed);
     }
 
@@ -576,34 +687,31 @@
       background: #ffebee;
     }
 
-    .btn-bookmark.bookmarked svg {
-      fill: #ef476f;
-      stroke: #ef476f;
-    }
-
     .card-content {
-      padding: 16px 18px 18px 18px;
+      padding: 14px 18px 16px 18px;
     }
 
     .card-header-row {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+      gap: 8px;
       margin-bottom: 6px;
     }
 
     .card-name {
-      font-size: 1.15rem;
+      font-size: 1.12rem;
       font-weight: 800;
       color: var(--primary-dark);
       line-height: 1.25;
+      letter-spacing: -0.2px;
     }
 
     .card-rating {
       display: flex;
       align-items: center;
       gap: 3px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 800;
       color: #d97706;
       background: linear-gradient(135deg, #fef3c7, #fde68a);
@@ -616,14 +724,54 @@
     }
 
     .card-desc {
-      font-size: 0.84rem;
+      font-size: 0.83rem;
       color: var(--text-muted);
-      line-height: 1.5;
-      margin-bottom: 14px;
+      line-height: 1.48;
+      margin-bottom: 10px;
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
+    }
+
+    /* Info Row for Operating Hours & Status Pill (Separated from description) */
+    .card-info-pills {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: var(--radius-full);
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+    }
+
+    .status-pill.closed {
+      background: #fef2f2;
+      color: #b91c1c;
+      border-color: #fecaca;
+    }
+
+    .hours-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.71rem;
+      font-weight: 600;
+      color: #475569;
+      background: #f1f5f9;
+      padding: 3px 9px;
+      border-radius: var(--radius-full);
     }
 
     .card-footer {
@@ -631,7 +779,8 @@
       align-items: center;
       justify-content: space-between;
       border-top: 2px dashed #edf2f7;
-      padding-top: 14px;
+      padding-top: 12px;
+      gap: 8px;
     }
 
     .card-meta-loc {
@@ -640,8 +789,8 @@
       gap: 5px;
       font-size: 0.76rem;
       color: #2a9d8f;
-      font-weight: 600;
-      max-width: 60%;
+      font-weight: 700;
+      max-width: 62%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -651,17 +800,18 @@
       background: linear-gradient(135deg, #2a9d8f, #21867a);
       color: #ffffff;
       border: 2px solid #ffffff;
-      padding: 8px 18px;
-      font-size: 0.8rem;
+      padding: 7px 16px;
+      font-size: 0.78rem;
       font-weight: 700;
       border-radius: var(--radius-full);
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 5px;
-      box-shadow: 4px 4px 10px rgba(42, 157, 143, 0.4),
+      box-shadow: 4px 4px 10px rgba(42, 157, 143, 0.35),
                   inset 1px 1px 3px rgba(255, 255, 255, 0.6);
-      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      flex-shrink: 0;
     }
 
     .btn-explore:hover {
@@ -669,11 +819,80 @@
       box-shadow: 6px 6px 14px rgba(42, 157, 143, 0.5);
     }
 
-    .btn-explore:active {
-      transform: translateY(1px);
-      box-shadow: var(--clay-btn-pressed);
+    /* COMPACT LIST VIEW MODE */
+    .destinations-grid.compact-view {
+      gap: 12px;
     }
 
+    .destinations-grid.compact-view .card-destination {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 8px;
+      border-radius: var(--radius-md);
+    }
+
+    .destinations-grid.compact-view .card-media-wrap {
+      width: 105px;
+      height: 105px;
+      border-radius: 16px;
+      margin: 0;
+      flex-shrink: 0;
+    }
+
+    .destinations-grid.compact-view .card-category-badge {
+      top: 6px;
+      left: 6px;
+      font-size: 0.6rem;
+      padding: 2px 7px;
+    }
+
+    .destinations-grid.compact-view .btn-bookmark {
+      top: 6px;
+      right: 6px;
+      width: 28px;
+      height: 28px;
+    }
+
+    .destinations-grid.compact-view .btn-bookmark svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .destinations-grid.compact-view .card-content {
+      padding: 4px 10px 4px 12px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .destinations-grid.compact-view .card-name {
+      font-size: 0.96rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .destinations-grid.compact-view .card-desc {
+      -webkit-line-clamp: 1;
+      font-size: 0.76rem;
+      margin-bottom: 6px;
+    }
+
+    .destinations-grid.compact-view .card-info-pills {
+      margin-bottom: 6px;
+    }
+
+    .destinations-grid.compact-view .card-footer {
+      padding-top: 6px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
+    .destinations-grid.compact-view .btn-explore {
+      padding: 4px 11px;
+      font-size: 0.7rem;
+    }
+
+    /* Planning Tab */
     .planning-header {
       padding: 16px 18px 10px 18px;
     }
@@ -724,7 +943,7 @@
       border: 2.5px solid #ffffff;
       padding: 13px;
       border-radius: var(--radius-md);
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -734,7 +953,7 @@
       box-shadow: 6px 6px 16px rgba(42, 157, 143, 0.4),
                   -4px -4px 10px rgba(255, 255, 255, 0.8),
                   inset 2px 2px 4px rgba(255, 255, 255, 0.4);
-      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .btn-primary:hover {
@@ -743,7 +962,7 @@
     }
 
     .btn-primary:active {
-      transform: translateY(1px);
+      transform: translateY(1px) scale(0.98);
       box-shadow: var(--clay-btn-pressed);
     }
 
@@ -763,7 +982,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
+      animation: cardEntrance 0.35s ease backwards;
     }
 
     .itinerary-item:hover {
@@ -816,11 +1036,7 @@
       transform: scale(1.1);
     }
 
-    .btn-del-itinerary:active {
-      transform: scale(0.95);
-      box-shadow: var(--clay-btn-pressed);
-    }
-
+    /* Map Tab */
     #map-wrapper {
       position: relative;
       width: 100%;
@@ -896,7 +1112,8 @@
       margin-bottom: 16px;
       border: 3.5px solid #ffffff;
       box-shadow: var(--clay-card-shadow);
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
+      animation: cardEntrance 0.4s ease backwards;
     }
 
     .community-post:hover {
@@ -978,6 +1195,41 @@
       border-color: #ffd1dc;
     }
 
+    /* Admin Category Manager Chips */
+    .admin-cat-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      padding: 5px 11px;
+      border-radius: var(--radius-full);
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.04);
+    }
+
+    .btn-del-cat {
+      background: #fee2e2;
+      color: #ef4444;
+      border: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      font-size: 0.65rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-del-cat:hover {
+      transform: scale(1.15);
+    }
+
     /* Optimized Smooth & Neat Tab Bar Navigation */
     .bottom-nav {
       position: fixed;
@@ -986,10 +1238,10 @@
       transform: translateX(-50%);
       width: calc(100% - 32px);
       max-width: 440px;
-      height: 62px;
+      height: 64px;
       z-index: 100;
       padding: 6px;
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(22px);
       -webkit-backdrop-filter: blur(22px);
       border: 2.5px solid #ffffff;
@@ -997,7 +1249,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       align-items: center;
-      box-shadow: 0 12px 32px rgba(30, 58, 43, 0.14),
+      box-shadow: 0 14px 34px rgba(30, 58, 43, 0.16),
                   0 2px 8px rgba(100, 116, 139, 0.08),
                   inset 0 1px 2px rgba(255, 255, 255, 0.95);
     }
@@ -1109,7 +1361,6 @@
       pointer-events: none;
     }
 
-    /* Susunan Bersebelahan (Side-by-Side) Jata Negeri Perak & Bendera Negeri Perak */
     .splash-emblem {
       display: flex;
       flex-direction: row;
@@ -1219,7 +1470,7 @@
       width: 0%;
       background: linear-gradient(90deg, #f4a261, #e76f51, #2a9d8f);
       border-radius: var(--radius-full);
-      animation: loadProgress 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      animation: loadProgress 1.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     }
 
     @keyframes loadProgress {
@@ -1257,7 +1508,7 @@
       padding: 22px 22px calc(26px + var(--safe-bottom)) 22px;
       overflow-y: auto;
       transform: translateY(100%);
-      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
       box-shadow: 0 -15px 45px rgba(30, 41, 59, 0.25);
       border-top: 4px solid #ffffff;
       border-left: 4px solid #ffffff;
@@ -1417,7 +1668,7 @@
         </div>
       </div>
       <div class="header-actions">
-        <!-- Lencana Status Cloud Sync (Boleh diklik untuk Diagnostik) -->
+        <!-- Lencana Status Cloud Sync -->
         <button id="btn-sync-status" class="sync-badge" onclick="openModal('modal-sync-diag')" title="Klik untuk info status Cloud Sync">
           <span class="sync-dot"></span>
           <span id="sync-status-label">Menyambung...</span>
@@ -1454,22 +1705,48 @@
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
           <input type="text" id="destination-search" class="search-input" placeholder="Cari tempat menarik, kopi, warisan...">
+          <button id="btn-clear-search" class="btn-clear-search" aria-label="Padam carian">✕</button>
         </div>
       </section>
 
+      <!-- Dynamic Category Filter Bar -->
       <section class="category-scroll" id="category-pills-bar">
-        <button class="cat-pill active" data-cat="ALL">Semua</button>
-        <button class="cat-pill" data-cat="Nature">🌿 Nature</button>
-        <button class="cat-pill" data-cat="Heritage">🏛️ Heritage</button>
-        <button class="cat-pill" data-cat="Food & Cafe">☕ Food & Cafe</button>
-        <button class="cat-pill" data-cat="Hotel">🏨 Hotel</button>
-        <button class="cat-pill" data-cat="Local Attractions">✨ Local</button>
-        <button class="cat-pill" data-cat="BOOKMARKED">❤️ Kegemaran</button>
+        <!-- Rendered dynamically by JS -->
       </section>
 
+      <!-- Enhanced List Header with Sort & View Switcher -->
       <section class="section-title-wrap">
-        <h3 class="section-title" id="destination-listing-title">Destinasi Menarik</h3>
-        <span class="section-subtitle" id="destination-count-badge">0 Tempat</span>
+        <div class="section-title-left">
+          <h3 class="section-title" id="destination-listing-title">Destinasi Menarik</h3>
+          <span class="section-subtitle" id="destination-count-badge">0 Tempat</span>
+        </div>
+
+        <div class="list-controls-right">
+          <select id="sort-destinations" class="sort-select" aria-label="Susun mengikut">
+            <option value="DEFAULT">✨ Cadangan</option>
+            <option value="RATING">⭐ Rating Tertinggi</option>
+            <option value="NAME">🔤 Nama (A-Z)</option>
+          </select>
+
+          <div class="view-toggle-group" role="group" aria-label="Tukar Mod Paparan">
+            <button id="btn-view-card" class="btn-view-mode active" onclick="setListViewMode('card')" title="Paparan Kad Besar">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+                <line x1="3" y1="14" x2="21" y2="14"></line>
+              </svg>
+            </button>
+            <button id="btn-view-compact" class="btn-view-mode" onclick="setListViewMode('compact')" title="Paparan Senarai Padat">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                <line x1="8" y1="6" x2="21" y2="6"></line>
+                <line x1="8" y1="12" x2="21" y2="12"></line>
+                <line x1="8" y1="18" x2="21" y2="18"></line>
+                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
       </section>
 
       <section class="destinations-grid" id="destinations-container">
@@ -1525,12 +1802,8 @@
 
     <section id="tab-map" class="tab-content" style="padding-bottom: 0;">
       <div id="map-wrapper">
-        <div class="map-floating-filter">
-          <button class="map-pill active" onclick="filterMapMarkers('ALL', this)">Semua</button>
-          <button class="map-pill" onclick="filterMapMarkers('Nature', this)">🌿 Alam</button>
-          <button class="map-pill" onclick="filterMapMarkers('Heritage', this)">🏛️ Warisan</button>
-          <button class="map-pill" onclick="filterMapMarkers('Food & Cafe', this)">☕ Kafe</button>
-          <button class="map-pill" onclick="filterMapMarkers('Hotel', this)">🏨 Hotel</button>
+        <div class="map-floating-filter" id="map-pills-bar">
+          <!-- Rendered dynamically by JS -->
         </div>
         <div id="taiping-map"></div>
       </div>
@@ -1618,13 +1891,14 @@
         <span id="detail-category" class="hero-badge" style="margin-bottom:0;">Kategori</span>
         <button class="btn-sheet-close" onclick="closeModal('modal-destination')">✕</button>
       </div>
-      <div style="width: 100%; height: 210px; border-radius: var(--radius-md); overflow: hidden; margin-bottom: 14px;">
+      <div style="width: 100%; height: 215px; border-radius: var(--radius-md); overflow: hidden; margin-bottom: 14px; border: 3px solid #fff; box-shadow: var(--clay-card-shadow);">
         <img id="detail-img" src="" alt="Destinasi" style="width: 100%; height: 100%; object-fit: cover;">
       </div>
-      <h3 id="detail-title" style="font-size: 1.4rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 6px;">Nama Destinasi</h3>
-      <div style="display: flex; gap: 12px; font-size: 0.8rem; color: var(--forest-green); margin-bottom: 12px; font-weight: 600;">
-        <span id="detail-rating">⭐ 4.8</span>
-        <span id="detail-location">📍 Alamat</span>
+      <h3 id="detail-title" style="font-size: 1.4rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 6px;">Nama Destinasi</h3>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.8rem; color: var(--forest-green); margin-bottom: 12px; font-weight: 700; align-items: center;">
+        <span id="detail-rating" class="card-rating">⭐ 4.8</span>
+        <span id="detail-hours" class="hours-pill">🕒 Setiap Hari</span>
+        <span id="detail-location" style="color: var(--primary-green);">📍 Alamat</span>
       </div>
       <p id="detail-desc" style="font-size: 0.88rem; line-height: 1.6; color: #4b5563; margin-bottom: 20px;">Penerangan lengkap mengenai tarikan sejarah dan keindahan tempat ini...</p>
 
@@ -1635,7 +1909,7 @@
           </svg>
           Navigasi (Google Maps)
         </a>
-        <button id="detail-btn-bookmark" class="btn-primary" style="width: auto; background: #f3f4f6; color: var(--primary-dark); border: 1px solid #d1d5db;">
+        <button id="detail-btn-bookmark" class="btn-primary" style="width: auto; background: #ffffff; color: var(--primary-dark); border: 2px solid #e2e8f0; box-shadow: var(--clay-btn-shadow);">
           ❤️ Simpan
         </button>
       </div>
@@ -1651,12 +1925,12 @@
         <button class="btn-sheet-close" onclick="closeModal('modal-admin-login')">✕</button>
       </div>
       <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px;">
-        ID Lalai: <b>ID</b> | Kata Laluan: <b>PASSWORD</b>
+        Masukkan ID Pentadbir dan Kata Laluan untuk mengurus kategori & destinasi.
       </p>
       <form id="form-admin-login">
         <div class="form-group">
           <label for="admin-id">ID Pengguna</label>
-          <input type="text" id="admin-id" class="form-control" placeholder="TYPE ID" required>
+          <input type="text" id="admin-id" class="form-control" placeholder="Masukkan ID" required>
         </div>
         <div class="form-group">
           <label for="admin-password">Kata Laluan</label>
@@ -1680,32 +1954,54 @@
         <button class="btn-sheet-close" onclick="closeModal('modal-admin-dashboard')">✕</button>
       </div>
 
+      <!-- BAHARU: Pengurusan Kategori Dinamik (Add / Delete Category) -->
+      <div style="background: #ffffff; padding: 16px; border-radius: var(--radius-md); border: 2.5px solid #ffffff; box-shadow: var(--clay-card-shadow); margin-bottom: 20px;">
+        <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 6px;">🏷️ Urus Kategori (Tambah / Padam)</h4>
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 12px;">Tambah kategori baharu berserta ikon emoji untuk dipaparkan di bar penapis utama & peta.</p>
+        
+        <form id="form-add-category" style="display: flex; gap: 8px; margin-bottom: 12px;">
+          <input type="text" id="new-cat-icon" class="form-control" placeholder="🌟" style="width: 62px; text-align: center; font-size: 1.1rem; padding: 8px;" maxlength="4" title="Emoji Kategori" required>
+          <input type="text" id="new-cat-name" class="form-control" placeholder="Nama Kategori (cth: Shopping)" style="flex: 1;" required>
+          <button type="submit" class="btn-primary" style="width: auto; padding: 0 16px; font-size: 0.8rem;">+ Tambah</button>
+        </form>
+
+        <div id="admin-categories-list" style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <!-- Dynamic category chips rendered here -->
+        </div>
+      </div>
+
       <!-- Add or Edit Destination Form -->
-      <div style="background: #f9fafb; padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-soft); margin-bottom: 20px;">
-        <h4 id="admin-form-heading" style="font-size: 0.95rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 12px;">+ Tambah / Kemas Kini Destinasi</h4>
+      <div style="background: #ffffff; padding: 16px; border-radius: var(--radius-md); border: 2.5px solid #ffffff; box-shadow: var(--clay-card-shadow); margin-bottom: 20px;">
+        <h4 id="admin-form-heading" style="font-size: 0.95rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 12px;">📍 Tambah / Kemas Kini Destinasi</h4>
         <form id="form-destination-crud">
           <input type="hidden" id="crud-id">
           <div class="form-group">
             <label for="crud-name">Nama Destinasi</label>
-            <input type="text" id="crud-name" class="form-control" placeholder="cth: Zoo Taiping & Night Safari" required>
+            <input type="text" id="crud-name" class="form-control" placeholder="cth: Selagi Coffee" required>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <div class="form-group" style="flex: 2;">
+              <label for="crud-cat">Kategori</label>
+              <select id="crud-cat" class="form-control" required>
+                <!-- Populated dynamically from categories -->
+              </select>
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label for="crud-rating">Rating (1-5)</label>
+              <input type="number" step="0.1" min="1" max="5" id="crud-rating" class="form-control" placeholder="5.0" value="4.9" required>
+            </div>
           </div>
           <div class="form-group">
-            <label for="crud-cat">Kategori</label>
-            <select id="crud-cat" class="form-control" required>
-              <option value="Nature">Nature (Alam Semula Jadi)</option>
-              <option value="Heritage">Heritage (Warisan Sejarah)</option>
-              <option value="Food & Cafe">Food & Cafe (Makanan & Kopi)</option>
-              <option value="Hotel">Hotel & Penginapan</option>
-              <option value="Local Attractions">Local Attractions (Tarikan Setempat)</option>
-            </select>
+            <label for="crud-hours">Waktu Operasi / Info Cuti (Pilihan)</label>
+            <input type="text" id="crud-hours" class="form-control" placeholder="cth: Buka Setiap Hari 9:00 AM - 10:00 PM (Cuti Rabu)">
           </div>
           <div class="form-group">
             <label for="crud-desc">Penerangan Ringkas</label>
-            <textarea id="crud-desc" rows="2" class="form-control" placeholder="Kisah menarik tempat ini..." required></textarea>
+            <textarea id="crud-desc" rows="2" class="form-control" placeholder="Kisah menarik atau konsep tempat ini..." required></textarea>
           </div>
           <div class="form-group">
             <label for="crud-loc">Nama Lokasi / Alamat</label>
-            <input type="text" id="crud-loc" class="form-control" placeholder="Jalan Taman Tasik, Taiping" required>
+            <input type="text" id="crud-loc" class="form-control" placeholder="cth: Lorong 2 Kamunting, Taiping" required>
           </div>
           <div class="form-group">
             <label style="display:flex; justify-content:space-between; align-items:center;">
@@ -1742,14 +2038,14 @@
       </div>
 
       <!-- Manage List -->
-      <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 10px;">Senarai Destinasi Semasa</h4>
+      <h4 style="font-size: 0.95rem; font-weight: 800; color: var(--primary-dark); margin-bottom: 10px;">Senarai Destinasi Semasa</h4>
       <div id="admin-destinations-list" style="display: flex; flex-direction: column; gap: 10px;">
         <!-- Filled with admin edit/delete rows -->
       </div>
 
       <div style="margin-top: 24px; border-top: 1px solid #e5e7eb; padding-top: 14px; display: flex; justify-content: space-between;">
-        <button id="btn-reset-defaults" style="background: none; border: none; color: #d97706; font-size: 0.78rem; font-weight: 600; cursor: pointer;">Pulihkan Destinasi Asal</button>
-        <button id="btn-admin-logout" style="background: none; border: none; color: #ef4444; font-size: 0.78rem; font-weight: 600; cursor: pointer;">Log Keluar Admin</button>
+        <button id="btn-reset-defaults" style="background: none; border: none; color: #d97706; font-size: 0.78rem; font-weight: 700; cursor: pointer;">Pulihkan Data Asal</button>
+        <button id="btn-admin-logout" style="background: none; border: none; color: #ef4444; font-size: 0.78rem; font-weight: 700; cursor: pointer;">Log Keluar Admin</button>
       </div>
     </div>
   </div>
@@ -1770,41 +2066,15 @@
       </div>
 
       <div class="diag-box">
-        <div style="font-weight: 800; color: var(--primary-dark); margin-bottom: 6px;">Kenapa Data Tidak Boleh Sync Sebelum Ini?</div>
+        <div style="font-weight: 800; color: var(--primary-dark); margin-bottom: 6px;">Sistem Penyelarasan Dwi-Enjin:</div>
         <ul style="padding-left: 18px; color: #334155; display: flex; flex-direction: column; gap: 6px;">
           <li>
-            <b>1. Anonymous Auth Belum Diaktifkan:</b> Jika <i>Anonymous Sign-in</i> tidak diaktifkan dalam Firebase Console, kod asal berhenti serta-merta dan tidak memulakan penyelarasan pangkalan data. <i>(Kini diperbaiki: Aplikasi terus menyambung ke DB walaupun tanpa Auth)</i>.
+            <b>1. Kategori & Destinasi Dinamik:</b> Semua kategori baharu dan lokasi yang ditambah melalui Admin diselaraskan secara masa nyata ke Firebase Realtime Database & Cloud Firestore.
           </li>
           <li>
-            <b>2. Realtime Database vs Firestore:</b> Konfigurasi anda mempunyai URL <code>firebasedatabase.app</code> (Realtime Database). Kod kini menyokong <b>kedua-dua</b> Realtime Database & Cloud Firestore secara serentak!
-          </li>
-          <li>
-            <b>3. Saiz Gambar Base64 Terlalu Besar:</b> Gambar kamera telefon (>1MB) akan ditolak oleh pangkalan data. <i>(Kini diperbaiki: Gambar dimampatkan secara automatik kepada saiz optimum sebelum dihantar)</i>.
+            <b>2. Auto-Mampatan Gambar:</b> Gambar yang dimuat naik dimampatkan secara pintar supaya pantas dimuatkan pada telefon pintar.
           </li>
         </ul>
-      </div>
-
-      <div class="diag-box">
-        <div style="font-weight: 800; color: var(--primary-dark); margin-bottom: 4px;">Tetapan Firebase Console (Jika Masih Disekat):</div>
-        <p style="font-size: 0.75rem; color: #475569;">Jika status menunjukkan <b>"Permission Denied"</b>, buka <a href="https://console.firebase.google.com/" target="_blank" style="color:#0369a1; font-weight:700;">Firebase Console</a> projek <code>taipinglocalexplorer</code> dan pastikan:</p>
-        
-        <div style="margin-top: 8px; font-weight: 700; font-size: 0.75rem;">A. Realtime Database Rules:</div>
-        <pre class="code-snippet">{
-  "rules": {
-    ".read": true,
-    ".write": true
-  }
-}</pre>
-
-        <div style="margin-top: 8px; font-weight: 700; font-size: 0.75rem;">B. Cloud Firestore Rules:</div>
-        <pre class="code-snippet">rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if true;
-    }
-  }
-}</pre>
       </div>
 
       <button class="btn-primary" onclick="forcePushAllToCloud()">
@@ -1814,7 +2084,7 @@ service cloud.firestore {
   </div>
 
   <!-- Custom In-App Notification Toast -->
-  <div id="toast-msg" style="position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%) translateY(50px); background: #133324; color: #fff; padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600; opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 9999; box-shadow: 0 4px 14px rgba(0,0,0,0.2); border: 1px solid var(--accent-gold);">
+  <div id="toast-msg" style="position: fixed; bottom: 88px; left: 50%; transform: translateX(-50%) translateY(50px); background: #133324; color: #fff; padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600; opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 9999; box-shadow: 0 6px 18px rgba(0,0,0,0.22); border: 1.5px solid var(--accent-gold);">
     Mesej Notifikasi
   </div>
 
@@ -1892,12 +2162,22 @@ service cloud.firestore {
   </script>
 
   <script>
+    const STORAGE_KEY_CATEGORIES = 'jelajah_taiping_categories_v1';
     const STORAGE_KEY_DESTINATIONS = 'jelajah_taiping_destinations_v1';
     const STORAGE_KEY_BOOKMARKS = 'jelajah_taiping_bookmarks_v1';
     const STORAGE_KEY_ITINERARY = 'jelajah_taiping_itinerary_v1';
     const STORAGE_KEY_COMMUNITY = 'jelajah_taiping_community_v2';
     const STORAGE_KEY_AUTH = 'jelajah_taiping_auth_state_v1';
     const STORAGE_KEY_DEVICE_ID = 'jelajah_taiping_device_uid_v1';
+    const STORAGE_KEY_VIEW_MODE = 'jelajah_taiping_view_mode_v1';
+
+    const DEFAULT_CATEGORIES = [
+      { id: 'cat-nature', name: 'Nature', icon: '🌿' },
+      { id: 'cat-heritage', name: 'Heritage', icon: '🏛️' },
+      { id: 'cat-food', name: 'Food & Cafe', icon: '☕' },
+      { id: 'cat-hotel', name: 'Hotel', icon: '🏨' },
+      { id: 'cat-local', name: 'Local Attractions', icon: '✨' }
+    ];
 
     const DEFAULT_DESTINATIONS = [
       {
@@ -1905,6 +2185,7 @@ service cloud.firestore {
         name: 'Taman Tasik Taiping',
         category: 'Nature',
         rating: '4.9',
+        hours: 'Buka Setiap Hari · 24 Jam',
         description: 'Taman awam terawal dibina di Tanah Melayu pada 1880, terkenal dengan barisan pohon hujan gergasi (Angsana) yang melentur dahan mencecah permukaan tasik.',
         location: 'Jalan Pekeliling, Taman Tasik Taiping',
         lat: 4.8580,
@@ -1916,6 +2197,7 @@ service cloud.firestore {
         name: 'Bukit Larut (Maxwell Hill)',
         category: 'Nature',
         rating: '4.7',
+        hours: '8:00 AM - 5:00 PM · Setiap Hari',
         description: 'Pusat peranginan tanah tinggi tertua di Malaysia (1,250m) dengan udara segar berkabus, flora subur serta nostalgia pondok era kolonial.',
         location: 'Pegunungan Bintang, Taiping',
         lat: 4.8643,
@@ -1927,6 +2209,7 @@ service cloud.firestore {
         name: 'Muzium Perak Taiping',
         category: 'Heritage',
         rating: '4.8',
+        hours: '9:00 AM - 5:00 PM',
         description: 'Muzium terawal di Malaysia dibina pada tahun 1883 dengan gaya seni bina neo-klasikal dan Victoria, menyimpan ribuan khazanah etnologi & zoologi negara.',
         location: 'Jalan Muzium, Taiping',
         lat: 4.8606,
@@ -1938,6 +2221,7 @@ service cloud.firestore {
         name: 'Zoo Taiping & Night Safari',
         category: 'Local Attractions',
         rating: '4.8',
+        hours: '8:30 AM - 11:00 PM · Setiap Hari',
         description: 'Zoo tertua di Semenanjung Malaysia meliputi 34 ekar dengan konsep habitat terbuka dan pengalaman safari waktu malam yang mengagumkan.',
         location: 'Jalan Taman Tasik, Taiping',
         lat: 4.8565,
@@ -1949,6 +2233,7 @@ service cloud.firestore {
         name: 'DoubleTap Cafe Heritage',
         category: 'Food & Cafe',
         rating: '4.7',
+        hours: '10:00 AM - 10:00 PM · Cuti Selasa',
         description: 'Kafe kontemporari berkonsepkan warisan di rumah kedai kolonial. Menyajikan kopi artisan, pencuci mulut tempatan dan pasta inovatif.',
         location: 'No. 34, Jalan Stesen, Taiping',
         lat: 4.8519,
@@ -1960,6 +2245,7 @@ service cloud.firestore {
         name: 'Novotel Taiping Perak',
         category: 'Hotel',
         rating: '4.6',
+        hours: 'Check-in 3:00 PM · 24 Jam',
         description: 'Penginapan moden 4-bintang di tengah-tengah bandar Taiping dengan pemandangan terus ke banjaran bukit dan akses mudah ke tarikan utama.',
         location: 'No 1, Jalan Tupai, Taiping',
         lat: 4.8524,
@@ -1968,16 +2254,17 @@ service cloud.firestore {
       }
     ];
 
-    // Default komuniti dikosongkan sepenuhnya mengikut permintaan
-    const DEFAULT_COMMUNITY = [];
-
+    let categories = [];
     let destinations = [];
     let bookmarks = new Set();
     let itineraries = [];
     let communityPosts = [];
     let isAdminLoggedIn = false;
     let activeFilter = 'ALL';
+    let activeMapFilter = 'ALL';
     let searchQuery = '';
+    let sortBy = 'DEFAULT';
+    let listViewMode = 'card';
     let activeUserId = null;
 
     let map = null;
@@ -1985,7 +2272,6 @@ service cloud.firestore {
     let adminPinMap = null;
     let adminPinMarker = null;
 
-    // Dapatkan atau cipta ID unik peranti sekiranya Firebase Auth tidak diaktifkan
     function getOrCreateDeviceId() {
       let devId = localStorage.getItem(STORAGE_KEY_DEVICE_ID);
       if (!devId) {
@@ -1995,7 +2281,41 @@ service cloud.firestore {
       return devId;
     }
 
-    // Kemas kini lencana status Cloud Sync di bahagian atas
+    function getCategoryIcon(catName) {
+      const found = categories.find(c => c.name.toLowerCase() === (catName || '').toLowerCase());
+      return found ? found.icon : '📍';
+    }
+
+    // Pemisahan Pintar: Jika penerangan mengandungi jadual waktu ("Buka setiap hari..."), asingkan secara automatik supaya kad lebih kemas
+    function parseCleanDescriptionAndHours(dest) {
+      let rawDesc = dest.description || '';
+      let hoursText = dest.hours || '';
+
+      if (!hoursText) {
+        const match = rawDesc.match(/(Buka\s+setiap\s+hari.*|Setiap\s+hari\s+\d+.*|\d{1,2}[:.]\d{2}\s*(?:am|pm|AM|PM).*)/i);
+        if (match) {
+          hoursText = match[1].trim();
+          rawDesc = rawDesc.replace(match[1], '').trim();
+          if (!rawDesc) rawDesc = dest.description;
+        }
+      }
+
+      // Semak sama ada hari ini hari cuti yang dinyatakan (cth: Cuti (Rabu))
+      const daysMs = ['ahad', 'isnin', 'selasa', 'rabu', 'khamis', 'jumaat', 'sabtu'];
+      const todayName = daysMs[new Date().getDay()];
+      const combinedText = (rawDesc + ' ' + hoursText).toLowerCase();
+      let isClosedToday = false;
+      if (combinedText.includes(`cuti (${todayName})`) || combinedText.includes(`cuti ${todayName}`) || combinedText.includes(`tutup ${todayName}`)) {
+        isClosedToday = true;
+      }
+
+      return {
+        cleanDesc: rawDesc,
+        hoursText: hoursText || 'Waktu fleksibel',
+        isClosedToday
+      };
+    }
+
     function updateSyncStatusUI(state, labelText, detailMsg, errorMsg = '') {
       const badge = document.getElementById('btn-sync-status');
       const label = document.getElementById('sync-status-label');
@@ -2020,7 +2340,6 @@ service cloud.firestore {
       }
     }
 
-    // Fungsi pemampatan gambar supaya tidak melebihi had 1MB Firestore/RTDB
     function compressImageFile(file, maxWidth = 800, quality = 0.72) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -2048,7 +2367,6 @@ service cloud.firestore {
       });
     }
 
-    // Inisialisasi Penyelarasan Dwi-Enjin (Realtime DB + Firestore)
     async function initFirebaseSync() {
       if (!window.FB_STORE) return;
       const store = window.FB_STORE;
@@ -2065,7 +2383,6 @@ service cloud.firestore {
           : await store.signInAnonymously(auth);
         activeUserId = cred.user.uid;
       } catch (authErr) {
-        console.warn("Firebase Auth tidak aktif (Guna ID Peranti):", authErr.message);
         activeUserId = getOrCreateDeviceId();
       }
 
@@ -2074,6 +2391,22 @@ service cloud.firestore {
 
       if (rtdb) {
         try {
+          // Sync Categories from RTDB
+          const catRtdbRef = store.ref(rtdb, `taiping_data/categories`);
+          store.onValue(catRtdbRef, (snapshot) => {
+            const val = snapshot.val();
+            if (val && Object.keys(val).length > 0) {
+              categories = Object.values(val);
+              saveCategoriesLocal();
+              renderCategoryBars();
+            } else {
+              DEFAULT_CATEGORIES.forEach(c => {
+                store.set(store.ref(rtdb, `taiping_data/categories/${c.id}`), c).catch(() => {});
+              });
+            }
+          });
+
+          // Sync Destinations from RTDB
           const destRtdbRef = store.ref(rtdb, `taiping_data/destinations`);
           store.onValue(destRtdbRef, (snapshot) => {
             rtdbConnected = true;
@@ -2081,10 +2414,11 @@ service cloud.firestore {
             const val = snapshot.val();
             if (val && Object.keys(val).length > 0) {
               destinations = Object.values(val);
+              ensureCategoriesFromDestinations();
               saveDestinationsLocal();
               renderDestinations();
               populateItineraryDestOptions();
-              if (map) renderMapMarkers(activeFilter);
+              if (map) renderMapMarkers(activeMapFilter);
               if (isAdminLoggedIn) renderAdminList();
             } else {
               DEFAULT_DESTINATIONS.forEach(d => {
@@ -2101,7 +2435,6 @@ service cloud.firestore {
           store.onValue(commRtdbRef, (snapshot) => {
             const val = snapshot.val();
             if (val && Object.keys(val).length > 0) {
-              // Tapis keluar sebarang post contoh lama (post-1, post-2) supaya kekal bersih
               const list = Object.values(val).filter(p => p.id !== 'post-1' && p.id !== 'post-2');
               list.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
               communityPosts = list;
@@ -2130,6 +2463,23 @@ service cloud.firestore {
 
       if (db) {
         try {
+          // Sync Categories from Firestore
+          const catColRef = store.collection(db, 'artifacts', window.FB_APP_ID, 'public', 'data', 'categories');
+          store.onSnapshot(catColRef, (snapshot) => {
+            if (!snapshot.empty) {
+              const remoteCats = [];
+              snapshot.forEach(docSnap => remoteCats.push(docSnap.data()));
+              categories = remoteCats;
+              saveCategoriesLocal();
+              renderCategoryBars();
+            } else if (!rtdbConnected) {
+              DEFAULT_CATEGORIES.forEach(async (c) => {
+                const docRef = store.doc(db, 'artifacts', window.FB_APP_ID, 'public', 'data', 'categories', c.id);
+                await store.setDoc(docRef, c).catch(() => {});
+              });
+            }
+          }, () => {});
+
           const destColRef = store.collection(db, 'artifacts', window.FB_APP_ID, 'public', 'data', 'destinations');
           store.onSnapshot(destColRef, (snapshot) => {
             firestoreConnected = true;
@@ -2138,10 +2488,11 @@ service cloud.firestore {
               const remoteDests = [];
               snapshot.forEach(docSnap => remoteDests.push(docSnap.data()));
               destinations = remoteDests;
+              ensureCategoriesFromDestinations();
               saveDestinationsLocal();
               renderDestinations();
               populateItineraryDestOptions();
-              if (map) renderMapMarkers(activeFilter);
+              if (map) renderMapMarkers(activeMapFilter);
               if (isAdminLoggedIn) renderAdminList();
             } else if (!rtdbConnected) {
               DEFAULT_DESTINATIONS.forEach(async (d) => {
@@ -2185,6 +2536,25 @@ service cloud.firestore {
         } catch (fsErr) {
           console.warn("Firestore Listener error:", fsErr);
         }
+      }
+    }
+
+    // Pastikan jika ada destinasi dengan kategori baharu, ia turut dimasukkan ke senarai kategori
+    function ensureCategoriesFromDestinations() {
+      let added = false;
+      destinations.forEach(d => {
+        if (d.category && !categories.some(c => c.name.toLowerCase() === d.category.toLowerCase())) {
+          categories.push({
+            id: 'cat-' + d.category.toLowerCase().replace(/[^a-z0-9]/g, '-'),
+            name: d.category,
+            icon: '✨'
+          });
+          added = true;
+        }
+      });
+      if (added) {
+        saveCategoriesLocal();
+        renderCategoryBars();
       }
     }
 
@@ -2242,8 +2612,10 @@ service cloud.firestore {
 
     function loadFromStorage() {
       try {
-        // Bersihkan kunci storan komuniti lama supaya post contoh terdahulu dibuang
         localStorage.removeItem('jelajah_taiping_community_v1');
+
+        const savedCats = localStorage.getItem(STORAGE_KEY_CATEGORIES);
+        categories = savedCats ? JSON.parse(savedCats) : [...DEFAULT_CATEGORIES];
 
         const savedDest = localStorage.getItem(STORAGE_KEY_DESTINATIONS);
         destinations = savedDest ? JSON.parse(savedDest) : [...DEFAULT_DESTINATIONS];
@@ -2260,12 +2632,22 @@ service cloud.firestore {
         const savedComm = localStorage.getItem(STORAGE_KEY_COMMUNITY);
         communityPosts = savedComm ? JSON.parse(savedComm) : [];
 
+        const savedView = localStorage.getItem(STORAGE_KEY_VIEW_MODE);
+        if (savedView === 'compact' || savedView === 'card') {
+          listViewMode = savedView;
+        }
+
         isAdminLoggedIn = localStorage.getItem(STORAGE_KEY_AUTH) === 'true';
+        ensureCategoriesFromDestinations();
       } catch (err) {
-        console.error('Ralat storan:', err);
+        categories = [...DEFAULT_CATEGORIES];
         destinations = [...DEFAULT_DESTINATIONS];
         communityPosts = [];
       }
+    }
+
+    function saveCategoriesLocal() {
+      localStorage.setItem(STORAGE_KEY_CATEGORIES, JSON.stringify(categories));
     }
 
     function saveDestinationsLocal() {
@@ -2284,7 +2666,40 @@ service cloud.firestore {
       localStorage.setItem(STORAGE_KEY_COMMUNITY, JSON.stringify(communityPosts));
     }
 
-    // Penyelarasan Destinasi ke Cloud (RTDB + Firestore)
+    // Penyelarasan Kategori ke Cloud
+    async function syncCategoryToFirebase(catItem) {
+      if (!window.FB_STORE) return;
+      const store = window.FB_STORE;
+      if (window.FB_RTDB) {
+        try {
+          await store.set(store.ref(window.FB_RTDB, `taiping_data/categories/${catItem.id}`), catItem);
+        } catch (e) {}
+      }
+      if (window.FB_DB) {
+        try {
+          const docRef = store.doc(window.FB_DB, 'artifacts', window.FB_APP_ID, 'public', 'data', 'categories', catItem.id);
+          await store.setDoc(docRef, catItem);
+        } catch (e) {}
+      }
+    }
+
+    async function removeCategoryFromFirebase(catId) {
+      if (!window.FB_STORE) return;
+      const store = window.FB_STORE;
+      if (window.FB_RTDB) {
+        try {
+          await store.remove(store.ref(window.FB_RTDB, `taiping_data/categories/${catId}`));
+        } catch (e) {}
+      }
+      if (window.FB_DB) {
+        try {
+          const docRef = store.doc(window.FB_DB, 'artifacts', window.FB_APP_ID, 'public', 'data', 'categories', catId);
+          await store.deleteDoc(docRef);
+        } catch (e) {}
+      }
+    }
+
+    // Penyelarasan Destinasi ke Cloud
     async function syncDestinationToFirebase(destItem) {
       if (!window.FB_STORE) return;
       const store = window.FB_STORE;
@@ -2294,18 +2709,14 @@ service cloud.firestore {
         try {
           await store.set(store.ref(window.FB_RTDB, `taiping_data/destinations/${destItem.id}`), destItem);
           synced = true;
-        } catch (e) {
-          console.warn("RTDB gagal simpan destinasi:", e.message);
-        }
+        } catch (e) {}
       }
       if (window.FB_DB) {
         try {
           const docRef = store.doc(window.FB_DB, 'artifacts', window.FB_APP_ID, 'public', 'data', 'destinations', destItem.id);
           await store.setDoc(docRef, destItem);
           synced = true;
-        } catch (e) {
-          console.warn("Firestore gagal simpan destinasi:", e.message);
-        }
+        } catch (e) {}
       }
 
       if (synced) {
@@ -2329,7 +2740,6 @@ service cloud.firestore {
       }
     }
 
-    // Penyelarasan Itinerary ke Cloud
     async function syncItineraryToFirebase(itinItem) {
       if (!window.FB_STORE) return;
       const store = window.FB_STORE;
@@ -2366,7 +2776,6 @@ service cloud.firestore {
       }
     }
 
-    // Penyelarasan Komuniti ke Cloud
     async function syncCommunityPostToFirebase(postItem) {
       if (!window.FB_STORE) return;
       const store = window.FB_STORE;
@@ -2384,9 +2793,11 @@ service cloud.firestore {
       }
     }
 
-    // Fungsi Paksa Muat Naik Semua Data Tempatan ke Cloud
     async function forcePushAllToCloud() {
-      showToast('Menghantar semua data ke Cloud...');
+      showToast('Menghantar semua kategori & data ke Cloud...');
+      for (const c of categories) {
+        await syncCategoryToFirebase(c);
+      }
       for (const d of destinations) {
         await syncDestinationToFirebase(d);
       }
@@ -2396,7 +2807,7 @@ service cloud.firestore {
       for (const i of itineraries) {
         await syncItineraryToFirebase(i);
       }
-      showToast('Selesai menyelaraskan data ke Cloud!');
+      showToast('Selesai menyelaraskan semua data ke Cloud!');
     }
 
     function showToast(message) {
@@ -2410,10 +2821,87 @@ service cloud.firestore {
       }, 2400);
     }
 
+    // Render semua bar kategori (Home Filter, Map Filter, Admin Select & Admin Chip List)
+    function renderCategoryBars() {
+      // 1. Home Category Pills
+      const homeBar = document.getElementById('category-pills-bar');
+      if (homeBar) {
+        let html = `<button class="cat-pill ${activeFilter === 'ALL' ? 'active' : ''}" onclick="selectCategoryFilter('ALL', this)">Semua</button>`;
+        categories.forEach(c => {
+          const isAct = activeFilter === c.name ? 'active' : '';
+          html += `<button class="cat-pill ${isAct}" onclick="selectCategoryFilter('${c.name.replace(/'/g, "\\'")}', this)"><span>${c.icon}</span><span>${c.name}</span></button>`;
+        });
+        html += `<button class="cat-pill ${activeFilter === 'BOOKMARKED' ? 'active' : ''}" onclick="selectCategoryFilter('BOOKMARKED', this)">❤️ Kegemaran</button>`;
+        homeBar.innerHTML = html;
+      }
+
+      // 2. Map Floating Filter Pills
+      const mapBar = document.getElementById('map-pills-bar');
+      if (mapBar) {
+        let mapHtml = `<button class="map-pill ${activeMapFilter === 'ALL' ? 'active' : ''}" onclick="filterMapMarkers('ALL', this)">Semua</button>`;
+        categories.forEach(c => {
+          const isAct = activeMapFilter === c.name ? 'active' : '';
+          mapHtml += `<button class="map-pill ${isAct}" onclick="filterMapMarkers('${c.name.replace(/'/g, "\\'")}', this)">${c.icon} ${c.name}</button>`;
+        });
+        mapBar.innerHTML = mapHtml;
+      }
+
+      // 3. Admin Destination Form Category Dropdown
+      const crudSelect = document.getElementById('crud-cat');
+      if (crudSelect) {
+        const currentVal = crudSelect.value;
+        crudSelect.innerHTML = categories.map(c => `<option value="${c.name}">${c.icon} ${c.name}</option>`).join('');
+        if (currentVal && categories.some(c => c.name === currentVal)) {
+          crudSelect.value = currentVal;
+        }
+      }
+
+      // 4. Admin Category Management Chips
+      const adminCatList = document.getElementById('admin-categories-list');
+      if (adminCatList) {
+        adminCatList.innerHTML = categories.map(c => `
+          <div class="admin-cat-chip">
+            <span>${c.icon} ${c.name}</span>
+            <button type="button" class="btn-del-cat" onclick="adminDeleteCategory('${c.id}')" title="Padam Kategori">✕</button>
+          </div>
+        `).join('');
+      }
+    }
+
+    function selectCategoryFilter(catName, btnEl) {
+      activeFilter = catName;
+      document.querySelectorAll('#category-pills-bar .cat-pill').forEach(p => p.classList.remove('active'));
+      if (btnEl) {
+        btnEl.classList.add('active');
+        btnEl.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+      renderDestinations();
+    }
+
+    function setListViewMode(mode) {
+      listViewMode = mode;
+      localStorage.setItem(STORAGE_KEY_VIEW_MODE, mode);
+      const container = document.getElementById('destinations-container');
+      const btnCard = document.getElementById('btn-view-card');
+      const btnCompact = document.getElementById('btn-view-compact');
+
+      if (mode === 'compact') {
+        container.classList.add('compact-view');
+        btnCompact.classList.add('active');
+        btnCard.classList.remove('active');
+      } else {
+        container.classList.remove('compact-view');
+        btnCard.classList.add('active');
+        btnCompact.classList.remove('active');
+      }
+    }
+
     function renderDestinations() {
       const container = document.getElementById('destinations-container');
       const countBadge = document.getElementById('destination-count-badge');
       const titleElement = document.getElementById('destination-listing-title');
+
+      setListViewMode(listViewMode);
 
       let filtered = destinations.filter(item => {
         const matchesCategory = (activeFilter === 'ALL') 
@@ -2429,30 +2917,42 @@ service cloud.firestore {
         return matchesCategory && matchesQuery;
       });
 
-      titleElement.textContent = activeFilter === 'BOOKMARKED' ? 'Destinasi Disimpan' : (activeFilter === 'ALL' ? 'Destinasi Menarik' : `Kategori: ${activeFilter}`);
+      if (sortBy === 'RATING') {
+        filtered.sort((a, b) => (parseFloat(b.rating) || 4.8) - (parseFloat(a.rating) || 4.8));
+      } else if (sortBy === 'NAME') {
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+      }
+
+      titleElement.textContent = activeFilter === 'BOOKMARKED' 
+        ? 'Destinasi Kegemaran' 
+        : (activeFilter === 'ALL' ? 'Destinasi Menarik' : `${getCategoryIcon(activeFilter)} ${activeFilter}`);
       countBadge.textContent = `${filtered.length} Tempat`;
 
       if (filtered.length === 0) {
         container.innerHTML = `
-          <div style="text-align: center; padding: 40px 20px; background: #fff; border-radius: var(--radius-lg); border: 1px dashed #d1d5db;">
-            <p style="font-size: 1.8rem; margin-bottom: 8px;">🌿</p>
-            <h4 style="font-size: 1rem; font-weight: 700; color: var(--primary-dark);">Tiada Destinasi Ditemui</h4>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Cuba tukar kata kunci carian atau pilih kategori lain.</p>
+          <div style="text-align: center; padding: 42px 20px; background: #fff; border-radius: var(--radius-lg); border: 2px dashed #cbd5e1; grid-column: 1 / -1;">
+            <p style="font-size: 2rem; margin-bottom: 8px;">🌿</p>
+            <h4 style="font-size: 1rem; font-weight: 800; color: var(--primary-dark);">Tiada Destinasi Ditemui</h4>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Cuba tukar kata kunci carian atau pilih kategori lain di atas.</p>
           </div>
         `;
         return;
       }
 
-      container.innerHTML = filtered.map(dest => {
+      container.innerHTML = filtered.map((dest, idx) => {
         const isFav = bookmarks.has(dest.id);
         const imgUrl = dest.image || 'https://placehold.co/600x400/1b4332/f4f1ea?text=Taiping+Perak';
+        const catIcon = getCategoryIcon(dest.category);
+        const parsed = parseCleanDescriptionAndHours(dest);
+        const delayMs = Math.min(idx * 55, 350);
+
         return `
-          <article class="card-destination" data-id="${dest.id}">
+          <article class="card-destination" style="animation-delay: ${delayMs}ms;" onclick="openDestinationDetail('${dest.id}')">
             <div class="card-media-wrap">
               <img class="card-img" src="${imgUrl}" alt="${dest.name}" loading="lazy" onerror="this.src='https://placehold.co/600x400/1b4332/f4f1ea?text=Taiping+Perak'">
-              <span class="card-category-badge">${dest.category}</span>
+              <span class="card-category-badge">${catIcon} ${dest.category}</span>
               <button class="btn-bookmark ${isFav ? 'bookmarked' : ''}" onclick="toggleBookmark('${dest.id}', event)" aria-label="Simpan destinasi">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="${isFav ? '#e63946' : 'none'}" stroke="${isFav ? '#e63946' : '#374151'}" stroke-width="2">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="${isFav ? '#ef476f' : 'none'}" stroke="${isFav ? '#ef476f' : '#374151'}" stroke-width="2.2">
                   <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                 </svg>
               </button>
@@ -2461,22 +2961,28 @@ service cloud.firestore {
               <div class="card-header-row">
                 <h4 class="card-name">${dest.name}</h4>
                 <div class="card-rating">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
                     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                   </svg>
                   <span>${dest.rating || '4.8'}</span>
                 </div>
               </div>
-              <p class="card-desc">${dest.description}</p>
+              <p class="card-desc">${parsed.cleanDesc}</p>
+              <div class="card-info-pills">
+                <span class="status-pill ${parsed.isClosedToday ? 'closed' : ''}">
+                  <span>${parsed.isClosedToday ? '🔴 Tutup Hari Ini' : '🟢 Buka'}</span>
+                </span>
+                <span class="hours-pill">🕒 ${parsed.hoursText}</span>
+              </div>
               <div class="card-footer">
                 <div class="card-meta-loc">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                     <circle cx="12" cy="10" r="3"></circle>
                   </svg>
                   <span>${dest.location}</span>
                 </div>
-                <button class="btn-explore" onclick="openDestinationDetail('${dest.id}')">
+                <button class="btn-explore" onclick="event.stopPropagation(); openDestinationDetail('${dest.id}')">
                   Terokai
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                     <polyline points="9 18 15 12 9 6"></polyline>
@@ -2506,20 +3012,27 @@ service cloud.firestore {
       const dest = destinations.find(d => d.id === id);
       if (!dest) return;
 
+      const parsed = parseCleanDescriptionAndHours(dest);
+      const catIcon = getCategoryIcon(dest.category);
+
       document.getElementById('detail-title').textContent = dest.name;
-      document.getElementById('detail-category').textContent = dest.category;
+      document.getElementById('detail-category').textContent = `${catIcon} ${dest.category}`;
       document.getElementById('detail-img').src = dest.image || 'https://placehold.co/600x400/1b4332/f4f1ea?text=Taiping+Perak';
       document.getElementById('detail-rating').textContent = `⭐ ${dest.rating || '4.8'}`;
+      document.getElementById('detail-hours').textContent = `🕒 ${parsed.hoursText}`;
       document.getElementById('detail-location').textContent = `📍 ${dest.location}`;
-      document.getElementById('detail-desc').textContent = dest.description;
+      document.getElementById('detail-desc').textContent = parsed.cleanDesc;
 
       const navBtn = document.getElementById('detail-nav-btn');
       navBtn.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dest.name + ' ' + dest.location)}`;
 
       const bkBtn = document.getElementById('detail-btn-bookmark');
+      const isFav = bookmarks.has(dest.id);
+      bkBtn.innerHTML = isFav ? '❤️ Disimpan' : '🤍 Simpan';
       bkBtn.onclick = () => {
         toggleBookmark(dest.id);
-        openModal('modal-destination');
+        const nowFav = bookmarks.has(dest.id);
+        bkBtn.innerHTML = nowFav ? '❤️ Disimpan' : '🤍 Simpan';
       };
 
       openModal('modal-destination');
@@ -2540,18 +3053,7 @@ service cloud.firestore {
       L.control.zoom({ position: 'bottomright' }).addTo(map);
       markerGroup = L.layerGroup().addTo(map);
 
-      renderMapMarkers('ALL');
-
-      map.on('click', (e) => {
-        if (!isAdminLoggedIn) return;
-        const latInput = document.getElementById('crud-lat');
-        const lngInput = document.getElementById('crud-lng');
-        if (latInput && lngInput) {
-          latInput.value = e.latlng.lat.toFixed(5);
-          lngInput.value = e.latlng.lng.toFixed(5);
-          showToast(`Koordinat dipilih: ${e.latlng.lat.toFixed(4)}, ${e.latlng.lng.toFixed(4)}`);
-        }
-      });
+      renderMapMarkers(activeMapFilter);
     }
 
     function renderMapMarkers(filterCategory) {
@@ -2564,12 +3066,13 @@ service cloud.firestore {
 
       filtered.forEach(dest => {
         if (!dest.lat || !dest.lng) return;
+        const iconEmoji = getCategoryIcon(dest.category);
 
         const customIcon = L.divIcon({
           className: 'custom-leaflet-marker',
           html: `
-            <div style="background: #1b4332; width: 34px; height: 34px; border-radius: 50%; border: 2.5px solid #d4af37; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px;">
-              ${dest.category === 'Food & Cafe' ? '☕' : dest.category === 'Heritage' ? '🏛️' : dest.category === 'Hotel' ? '🏨' : '🌿'}
+            <div style="background: #1b4332; width: 34px; height: 34px; border-radius: 50%; border: 2.5px solid #d4af37; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 15px;">
+              ${iconEmoji}
             </div>
           `,
           iconSize: [34, 34],
@@ -2590,7 +3093,8 @@ service cloud.firestore {
     }
 
     function filterMapMarkers(cat, btnElement) {
-      document.querySelectorAll('.map-pill').forEach(b => b.classList.remove('active'));
+      activeMapFilter = cat;
+      document.querySelectorAll('#map-pills-bar .map-pill').forEach(b => b.classList.remove('active'));
       if (btnElement) btnElement.classList.add('active');
       renderMapMarkers(cat);
     }
@@ -2693,19 +3197,39 @@ service cloud.firestore {
       }
     }
 
+    // Fungsi Admin: Padam Kategori
+    function adminDeleteCategory(catId) {
+      if (categories.length <= 1) {
+        showToast('Sekurang-kurangnya satu kategori diperlukan!');
+        return;
+      }
+      const target = categories.find(c => c.id === catId);
+      if (!target) return;
+
+      categories = categories.filter(c => c.id !== catId);
+      if (activeFilter === target.name) activeFilter = 'ALL';
+      if (activeMapFilter === target.name) activeMapFilter = 'ALL';
+
+      saveCategoriesLocal();
+      removeCategoryFromFirebase(catId);
+      renderCategoryBars();
+      renderDestinations();
+      showToast(`Kategori "${target.name}" telah dipadam.`);
+    }
+
     function renderAdminList() {
       const container = document.getElementById('admin-destinations-list');
       if (!container) return;
 
       container.innerHTML = destinations.map(d => `
-        <div style="display: flex; align-items: center; justify-content: space-between; background: #fff; padding: 10px 12px; border-radius: var(--radius-sm); border: 1px solid #e5e7eb;">
+        <div style="display: flex; align-items: center; justify-content: space-between; background: #fff; padding: 12px 14px; border-radius: var(--radius-sm); border: 2px solid #ffffff; box-shadow: var(--clay-btn-shadow);">
           <div style="max-width: 65%;">
-            <div style="font-weight: 700; font-size: 0.85rem; color: var(--primary-dark);">${d.name}</div>
-            <div style="font-size: 0.72rem; color: var(--text-muted);">${d.category} · ${d.location}</div>
+            <div style="font-weight: 800; font-size: 0.86rem; color: var(--primary-dark);">${d.name}</div>
+            <div style="font-size: 0.72rem; color: var(--text-muted);">${getCategoryIcon(d.category)} ${d.category} · ⭐ ${d.rating || '4.8'}</div>
           </div>
           <div style="display: flex; gap: 6px;">
-            <button onclick="prepareEditDestination('${d.id}')" style="background: #e8f5e9; color: var(--forest-green); border: none; padding: 5px 9px; border-radius: 6px; font-size: 0.72rem; font-weight: 600; cursor: pointer;">Edit</button>
-            <button onclick="adminDeleteDestination('${d.id}')" style="background: #fee2e2; color: #ef4444; border: none; padding: 5px 9px; border-radius: 6px; font-size: 0.72rem; font-weight: 600; cursor: pointer;">Padam</button>
+            <button onclick="prepareEditDestination('${d.id}')" style="background: #e8f5e9; color: var(--forest-green); border: none; padding: 6px 11px; border-radius: 8px; font-size: 0.74rem; font-weight: 700; cursor: pointer;">Edit</button>
+            <button onclick="adminDeleteDestination('${d.id}')" style="background: #fee2e2; color: #ef4444; border: none; padding: 6px 11px; border-radius: 8px; font-size: 0.74rem; font-weight: 700; cursor: pointer;">Padam</button>
           </div>
         </div>
       `).join('');
@@ -2715,9 +3239,12 @@ service cloud.firestore {
       const dest = destinations.find(d => d.id === id);
       if (!dest) return;
 
+      renderCategoryBars();
       document.getElementById('crud-id').value = dest.id;
       document.getElementById('crud-name').value = dest.name;
       document.getElementById('crud-cat').value = dest.category;
+      document.getElementById('crud-rating').value = dest.rating || '4.9';
+      document.getElementById('crud-hours').value = dest.hours || '';
       document.getElementById('crud-desc').value = dest.description;
       document.getElementById('crud-loc').value = dest.location;
       document.getElementById('crud-lat').value = dest.lat;
@@ -2736,14 +3263,17 @@ service cloud.firestore {
       if (adminPinMap) {
         updateAdminPinLocation(dest.lat, dest.lng);
       }
+      document.getElementById('admin-form-heading').scrollIntoView({ behavior: 'smooth' });
     }
 
     function resetCrudForm() {
       document.getElementById('form-destination-crud').reset();
       document.getElementById('crud-id').value = '';
+      document.getElementById('crud-rating').value = '4.9';
+      document.getElementById('crud-hours').value = '';
       document.getElementById('crud-img-base64').value = '';
       document.getElementById('img-preview-box').style.display = 'none';
-      document.getElementById('admin-form-heading').textContent = '+ Tambah / Kemas Kini Destinasi';
+      document.getElementById('admin-form-heading').textContent = '📍 Tambah / Kemas Kini Destinasi';
       document.getElementById('btn-save-crud').textContent = 'Simpan Destinasi';
       document.getElementById('btn-cancel-crud').style.display = 'none';
 
@@ -2759,7 +3289,7 @@ service cloud.firestore {
       renderDestinations();
       renderAdminList();
       populateItineraryDestOptions();
-      if (map) renderMapMarkers('ALL');
+      if (map) renderMapMarkers(activeMapFilter);
       showToast('Destinasi berjaya dipadam.');
     }
 
@@ -2776,6 +3306,7 @@ service cloud.firestore {
 
     window.addEventListener('DOMContentLoaded', () => {
       loadFromStorage();
+      renderCategoryBars();
       renderDestinations();
       populateItineraryDestOptions();
       renderItinerary();
@@ -2796,7 +3327,7 @@ service cloud.firestore {
       setTimeout(() => {
         const splash = document.getElementById('splash-screen');
         if (splash) splash.classList.add('hidden');
-      }, 1900);
+      }, 1750);
 
       const navItems = document.querySelectorAll('.bottom-nav .nav-item');
       const navGlider = document.getElementById('nav-glider');
@@ -2829,19 +3360,59 @@ service cloud.firestore {
         });
       });
 
-      document.querySelectorAll('#category-pills-bar .cat-pill').forEach(pill => {
-        pill.addEventListener('click', () => {
-          document.querySelectorAll('#category-pills-bar .cat-pill').forEach(p => p.classList.remove('active'));
-          pill.classList.add('active');
-          activeFilter = pill.getAttribute('data-cat');
-          renderDestinations();
-        });
-      });
-
+      // Carian & Butang Clear Carian
       const searchBox = document.getElementById('destination-search');
+      const clearSearchBtn = document.getElementById('btn-clear-search');
+
       searchBox.addEventListener('input', (e) => {
         searchQuery = e.target.value.trim();
+        clearSearchBtn.style.display = searchQuery.length > 0 ? 'inline-flex' : 'none';
         renderDestinations();
+      });
+
+      clearSearchBtn.addEventListener('click', () => {
+        searchBox.value = '';
+        searchQuery = '';
+        clearSearchBtn.style.display = 'none';
+        renderDestinations();
+      });
+
+      // Dropdown Susunan (Sorting)
+      const sortSelect = document.getElementById('sort-destinations');
+      sortSelect.addEventListener('change', (e) => {
+        sortBy = e.target.value;
+        renderDestinations();
+      });
+
+      // Borang Tambah Kategori Baharu dalam Admin
+      document.getElementById('form-add-category').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const iconInput = document.getElementById('new-cat-icon');
+        const nameInput = document.getElementById('new-cat-name');
+        const iconVal = iconInput.value.trim() || '✨';
+        const nameVal = nameInput.value.trim();
+
+        if (!nameVal) return;
+
+        if (categories.some(c => c.name.toLowerCase() === nameVal.toLowerCase())) {
+          showToast('Kategori ini sudah wujud!');
+          return;
+        }
+
+        const newCat = {
+          id: 'cat-' + Date.now(),
+          name: nameVal,
+          icon: iconVal
+        };
+
+        categories.push(newCat);
+        saveCategoriesLocal();
+        syncCategoryToFirebase(newCat);
+        renderCategoryBars();
+
+        iconInput.value = '';
+        nameInput.value = '';
+        showToast(`Kategori "${iconVal} ${nameVal}" ditambah!`);
       });
 
       document.getElementById('form-add-itinerary').addEventListener('submit', (e) => {
@@ -2895,6 +3466,7 @@ service cloud.firestore {
 
       document.getElementById('btn-open-admin').addEventListener('click', () => {
         if (isAdminLoggedIn) {
+          renderCategoryBars();
           renderAdminList();
           openModal('modal-admin-dashboard');
           setTimeout(() => {
@@ -2918,6 +3490,7 @@ service cloud.firestore {
           errElem.style.display = 'none';
           document.getElementById('admin-status-text').textContent = 'Panel Admin';
           closeModal('modal-admin-login');
+          renderCategoryBars();
           renderAdminList();
           openModal('modal-admin-dashboard');
           setTimeout(() => {
@@ -2939,14 +3512,18 @@ service cloud.firestore {
       });
 
       document.getElementById('btn-reset-defaults').addEventListener('click', () => {
+        categories = [...DEFAULT_CATEGORIES];
         destinations = [...DEFAULT_DESTINATIONS];
+        saveCategoriesLocal();
         saveDestinationsLocal();
+        categories.forEach(c => syncCategoryToFirebase(c));
         destinations.forEach(d => syncDestinationToFirebase(d));
+        renderCategoryBars();
         renderDestinations();
         renderAdminList();
         populateItineraryDestOptions();
         if (map) renderMapMarkers('ALL');
-        showToast('Destinasi dipulihkan ke asal.');
+        showToast('Kategori & Destinasi dipulihkan ke asal.');
       });
 
       const fileInput = document.getElementById('crud-img-file');
@@ -2972,6 +3549,8 @@ service cloud.firestore {
         const crudId = document.getElementById('crud-id').value;
         const name = document.getElementById('crud-name').value.trim();
         const category = document.getElementById('crud-cat').value;
+        const rating = document.getElementById('crud-rating').value || '5.0';
+        const hours = document.getElementById('crud-hours').value.trim();
         const description = document.getElementById('crud-desc').value.trim();
         const location = document.getElementById('crud-loc').value.trim();
         const lat = parseFloat(document.getElementById('crud-lat').value) || 4.8580;
@@ -2982,7 +3561,7 @@ service cloud.firestore {
         if (crudId) {
           const index = destinations.findIndex(d => d.id === crudId);
           if (index !== -1) {
-            targetItem = { ...destinations[index], name, category, description, location, lat, lng, image };
+            targetItem = { ...destinations[index], name, category, rating, hours, description, location, lat, lng, image };
             destinations[index] = targetItem;
             showToast('Destinasi berjaya dikemas kini!');
           }
@@ -2991,12 +3570,13 @@ service cloud.firestore {
             id: 'dest-' + Date.now(),
             name,
             category,
+            rating,
+            hours,
             description,
             location,
             lat,
             lng,
-            image,
-            rating: '5.0'
+            image
           };
           destinations.unshift(targetItem);
           showToast('Destinasi baharu ditambah!');
@@ -3010,7 +3590,7 @@ service cloud.firestore {
         renderDestinations();
         renderAdminList();
         populateItineraryDestOptions();
-        if (map) renderMapMarkers('ALL');
+        if (map) renderMapMarkers(activeMapFilter);
       });
 
       document.querySelectorAll('.modal-overlay').forEach(overlay => {
@@ -3023,7 +3603,7 @@ service cloud.firestore {
 
       if ('serviceWorker' in navigator) {
         const swCode = `
-          const CACHE_NAME = 'jelajah-taiping-cache-v2';
+          const CACHE_NAME = 'jelajah-taiping-cache-v3';
           self.addEventListener('install', (e) => {
             self.skipWaiting();
           });
