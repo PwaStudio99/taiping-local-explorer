@@ -56,7 +56,7 @@
       --radius-md: 22px;
       --radius-lg: 32px;
       --radius-full: 9999px;
-      --safe-bottom: env(safe-area-inset-bottom, 16px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-left: env(safe-area-inset-left, 0px);
       --safe-right: env(safe-area-inset-right, 0px);
@@ -294,8 +294,8 @@
     .tab-content {
       display: none;
       flex: 1;
-      padding-bottom: calc(85px + var(--safe-bottom));
-      animation: fadeInPage 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      padding-bottom: calc(96px + var(--safe-bottom));
+      animation: fadeInPage 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
 
     .tab-content.active {
@@ -824,7 +824,7 @@
     #map-wrapper {
       position: relative;
       width: 100%;
-      height: calc(100vh - 145px - var(--safe-top) - var(--safe-bottom));
+      height: calc(100vh - 140px - var(--safe-top) - var(--safe-bottom));
       min-height: 480px;
     }
 
@@ -978,87 +978,116 @@
       border-color: #ffd1dc;
     }
 
+    /* Optimized Smooth & Neat Tab Bar Navigation */
     .bottom-nav {
       position: fixed;
-      bottom: 10px;
+      bottom: calc(12px + var(--safe-bottom));
       left: 50%;
       transform: translateX(-50%);
-      width: calc(100% - 24px);
-      max-width: 656px;
+      width: calc(100% - 32px);
+      max-width: 440px;
+      height: 62px;
       z-index: 100;
-      padding: 10px 16px calc(10px + var(--safe-bottom)) 16px;
+      padding: 6px;
       background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 3px solid #ffffff;
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 2.5px solid #ffffff;
       border-radius: var(--radius-full);
-      display: flex;
-      justify-content: space-around;
-      box-shadow: 12px 12px 30px rgba(160, 175, 200, 0.45),
-                  -8px -8px 20px rgba(255, 255, 255, 0.95);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      align-items: center;
+      box-shadow: 0 12px 32px rgba(30, 58, 43, 0.14),
+                  0 2px 8px rgba(100, 116, 139, 0.08),
+                  inset 0 1px 2px rgba(255, 255, 255, 0.95);
     }
 
-    @media (min-width: 768px) {
-      .bottom-nav {
-        max-width: 740px;
-        bottom: 16px;
-      }
+    /* Sliding Active Pill Background */
+    .nav-glider {
+      position: absolute;
+      top: 5px;
+      bottom: 5px;
+      left: 6px;
+      width: calc((100% - 12px) / 4);
+      background: linear-gradient(135deg, #e6f6f4 0%, #d1f0ec 100%);
+      border-radius: var(--radius-full);
+      border: 1.5px solid #ffffff;
+      box-shadow: 0 3px 10px rgba(42, 157, 143, 0.16),
+                  inset 1px 1px 2px rgba(255, 255, 255, 0.9);
+      transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+      z-index: 0;
+      pointer-events: none;
     }
 
     .nav-item {
+      position: relative;
+      z-index: 1;
+      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       background: transparent;
       border: none;
-      padding: 6px 14px;
+      padding: 2px 4px;
       color: #94a3b8;
       cursor: pointer;
-      position: relative;
-      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-      border-radius: 20px;
+      border-radius: var(--radius-full);
+      transition: color 0.3s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      gap: 2px;
+    }
+
+    .nav-item:active {
+      transform: scale(0.92);
     }
 
     .nav-item svg {
-      width: 24px;
-      height: 24px;
-      stroke-width: 2.4;
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), stroke 0.2s ease;
+      width: 20px;
+      height: 20px;
+      stroke-width: 2.2;
+      transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1), stroke 0.3s ease;
     }
 
     .nav-label {
-      font-size: 0.7rem;
+      font-size: 0.63rem;
       font-weight: 700;
-      margin-top: 4px;
       letter-spacing: 0.3px;
       text-transform: uppercase;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease, color 0.3s ease;
+      line-height: 1;
     }
 
     .nav-item.active {
-      color: #2a9d8f;
-      background: #e8f6f4;
-      box-shadow: inset 2px 2px 4px rgba(42, 157, 143, 0.15), inset -2px -2px 4px rgba(255, 255, 255, 0.9);
+      color: #1e3a2b;
     }
 
     .nav-item.active svg {
-      transform: translateY(-2px) scale(1.1);
+      transform: translateY(-2px) scale(1.12);
       stroke: #2a9d8f;
+      stroke-width: 2.5;
+    }
+
+    .nav-item.active .nav-label {
+      color: #21867a;
+      font-weight: 800;
+      transform: translateY(-1px);
     }
 
     .nav-indicator {
-      width: 5px;
-      height: 5px;
+      width: 4px;
+      height: 4px;
       background: #2a9d8f;
       border-radius: 50%;
       position: absolute;
-      bottom: 2px;
+      bottom: 4px;
       opacity: 0;
-      transition: opacity 0.2s ease;
+      transform: scale(0);
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .nav-item.active .nav-indicator {
       opacity: 1;
+      transform: scale(1);
     }
 
     .splash-overlay {
@@ -1538,8 +1567,10 @@
       </div>
     </section>
 
-    <nav class="bottom-nav">
-      <button class="nav-item active" data-tab="tab-home" aria-label="Utama">
+    <nav class="bottom-nav" aria-label="Navigasi Utama">
+      <div class="nav-glider" id="nav-glider"></div>
+
+      <button class="nav-item active" data-tab="tab-home" data-index="0" aria-label="Utama">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
           <polyline points="9 22 9 12 15 12 15 22"></polyline>
@@ -1548,7 +1579,7 @@
         <div class="nav-indicator"></div>
       </button>
 
-      <button class="nav-item" data-tab="tab-planning" aria-label="Rancangan">
+      <button class="nav-item" data-tab="tab-planning" data-index="1" aria-label="Rancangan">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
           <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -1559,7 +1590,7 @@
         <div class="nav-indicator"></div>
       </button>
 
-      <button class="nav-item" data-tab="tab-map" aria-label="Peta">
+      <button class="nav-item" data-tab="tab-map" data-index="2" aria-label="Peta">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
           <line x1="8" y1="2" x2="8" y2="18"></line>
@@ -1569,7 +1600,7 @@
         <div class="nav-indicator"></div>
       </button>
 
-      <button class="nav-item" data-tab="tab-community" aria-label="Komuniti">
+      <button class="nav-item" data-tab="tab-community" data-index="3" aria-label="Komuniti">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
         </svg>
@@ -1864,7 +1895,7 @@ service cloud.firestore {
     const STORAGE_KEY_DESTINATIONS = 'jelajah_taiping_destinations_v1';
     const STORAGE_KEY_BOOKMARKS = 'jelajah_taiping_bookmarks_v1';
     const STORAGE_KEY_ITINERARY = 'jelajah_taiping_itinerary_v1';
-    const STORAGE_KEY_COMMUNITY = 'jelajah_taiping_community_v1';
+    const STORAGE_KEY_COMMUNITY = 'jelajah_taiping_community_v2';
     const STORAGE_KEY_AUTH = 'jelajah_taiping_auth_state_v1';
     const STORAGE_KEY_DEVICE_ID = 'jelajah_taiping_device_uid_v1';
 
@@ -1937,26 +1968,8 @@ service cloud.firestore {
       }
     ];
 
-    const DEFAULT_COMMUNITY = [
-      {
-        id: 'post-1',
-        author: 'Farhan Azman',
-        date: '2 jam yang lalu',
-        content: 'Pagi tadi jogging di Taman Tasik sekitar jam 7 pagi, pantulan kabus Bukit Larut atas air tasik betul-betul magis! Jangan lupa singgah makan Roti Bakar Telur Goyang di medan selera berdekatan.',
-        likes: 18,
-        liked: false,
-        timestamp: Date.now() - 7200000
-      },
-      {
-        id: 'post-2',
-        author: 'Siti Sarah',
-        date: 'Semalam',
-        content: 'Muzium Perak Taiping sangat kemas dan bersih! Anak-anak sangat teruja tengok koleksi sejarah dan rangka haiwan prasejarah. Tiket masuk sangat berpatutan.',
-        likes: 24,
-        liked: true,
-        timestamp: Date.now() - 86400000
-      }
-    ];
+    // Default komuniti dikosongkan sepenuhnya mengikut permintaan
+    const DEFAULT_COMMUNITY = [];
 
     let destinations = [];
     let bookmarks = new Set();
@@ -2045,7 +2058,6 @@ service cloud.firestore {
 
       updateSyncStatusUI('warning', 'Menyambung...', 'Sedang mengesahkan sesi dan pangkalan data Firebase...');
 
-      // 1. Cuba log masuk Anonymous Auth, tetapi JANGAN sekat sync jika gagal!
       try {
         const customToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
         const cred = customToken 
@@ -2059,9 +2071,7 @@ service cloud.firestore {
 
       let firestoreConnected = false;
       let rtdbConnected = false;
-      let lastErrorMsg = '';
 
-      // 2. Pendengar Realtime Database (RTDB) - Sangat pantas jika databaseURL wujud
       if (rtdb) {
         try {
           const destRtdbRef = store.ref(rtdb, `taiping_data/destinations`);
@@ -2077,13 +2087,11 @@ service cloud.firestore {
               if (map) renderMapMarkers(activeFilter);
               if (isAdminLoggedIn) renderAdminList();
             } else {
-              // Seed data awal ke RTDB
               DEFAULT_DESTINATIONS.forEach(d => {
                 store.set(store.ref(rtdb, `taiping_data/destinations/${d.id}`), d).catch(() => {});
               });
             }
           }, (err) => {
-            lastErrorMsg = err.message;
             if (!firestoreConnected) {
               updateSyncStatusUI('error', 'Ralat Rules', 'Sambungan ke Realtime Database ditolak oleh Security Rules.', err.message);
             }
@@ -2093,15 +2101,16 @@ service cloud.firestore {
           store.onValue(commRtdbRef, (snapshot) => {
             const val = snapshot.val();
             if (val && Object.keys(val).length > 0) {
-              const list = Object.values(val);
+              // Tapis keluar sebarang post contoh lama (post-1, post-2) supaya kekal bersih
+              const list = Object.values(val).filter(p => p.id !== 'post-1' && p.id !== 'post-2');
               list.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
               communityPosts = list;
               saveCommunityLocal();
               renderCommunityFeed();
             } else {
-              DEFAULT_COMMUNITY.forEach(c => {
-                store.set(store.ref(rtdb, `taiping_data/community/${c.id}`), c).catch(() => {});
-              });
+              communityPosts = [];
+              saveCommunityLocal();
+              renderCommunityFeed();
             }
           });
 
@@ -2119,7 +2128,6 @@ service cloud.firestore {
         }
       }
 
-      // 3. Pendengar Cloud Firestore (Serentak / Sandaran Utama)
       if (db) {
         try {
           const destColRef = store.collection(db, 'artifacts', window.FB_APP_ID, 'public', 'data', 'destinations');
@@ -2142,7 +2150,6 @@ service cloud.firestore {
               });
             }
           }, (err) => {
-            lastErrorMsg = err.message;
             if (!rtdbConnected) {
               updateSyncStatusUI('error', 'Sekatan Cloud', 'Pangkalan data memerlukan kebenaran (Rules) atau Auth diaktifkan.', err.message);
             }
@@ -2152,16 +2159,16 @@ service cloud.firestore {
           store.onSnapshot(commColRef, (snapshot) => {
             if (!snapshot.empty) {
               const remoteComm = [];
-              snapshot.forEach(docSnap => remoteComm.push(docSnap.data()));
+              snapshot.forEach(docSnap => {
+                const d = docSnap.data();
+                if (d.id !== 'post-1' && d.id !== 'post-2') {
+                  remoteComm.push(d);
+                }
+              });
               remoteComm.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
               communityPosts = remoteComm;
               saveCommunityLocal();
               renderCommunityFeed();
-            } else if (!rtdbConnected) {
-              DEFAULT_COMMUNITY.forEach(async (c) => {
-                const docRef = store.doc(db, 'artifacts', window.FB_APP_ID, 'public', 'data', 'community', c.id);
-                await store.setDoc(docRef, c).catch(() => {});
-              });
             }
           }, () => {});
 
@@ -2235,6 +2242,9 @@ service cloud.firestore {
 
     function loadFromStorage() {
       try {
+        // Bersihkan kunci storan komuniti lama supaya post contoh terdahulu dibuang
+        localStorage.removeItem('jelajah_taiping_community_v1');
+
         const savedDest = localStorage.getItem(STORAGE_KEY_DESTINATIONS);
         destinations = savedDest ? JSON.parse(savedDest) : [...DEFAULT_DESTINATIONS];
 
@@ -2248,12 +2258,13 @@ service cloud.firestore {
         ];
 
         const savedComm = localStorage.getItem(STORAGE_KEY_COMMUNITY);
-        communityPosts = savedComm ? JSON.parse(savedComm) : [...DEFAULT_COMMUNITY];
+        communityPosts = savedComm ? JSON.parse(savedComm) : [];
 
         isAdminLoggedIn = localStorage.getItem(STORAGE_KEY_AUTH) === 'true';
       } catch (err) {
         console.error('Ralat storan:', err);
         destinations = [...DEFAULT_DESTINATIONS];
+        communityPosts = [];
       }
     }
 
@@ -2638,7 +2649,11 @@ service cloud.firestore {
     function renderCommunityFeed() {
       const feed = document.getElementById('community-feed-container');
       if (communityPosts.length === 0) {
-        feed.innerHTML = `<p style="text-align: center; color: #9ca3af; font-size: 0.85rem; padding: 20px;">Jadilah orang pertama berkongsi pengalaman di sini!</p>`;
+        feed.innerHTML = `
+          <div style="text-align: center; padding: 32px 20px; background: #ffffff; border-radius: var(--radius-lg); border: 2px dashed #cbd5e1; color: var(--text-muted); font-size: 0.84rem;">
+            Tiada perkongsian komuniti lagi. Jadilah orang pertama berkongsi pengalaman anda di Taiping!
+          </div>
+        `;
         return;
       }
 
@@ -2784,11 +2799,19 @@ service cloud.firestore {
       }, 1900);
 
       const navItems = document.querySelectorAll('.bottom-nav .nav-item');
-      navItems.forEach(btn => {
+      const navGlider = document.getElementById('nav-glider');
+
+      navItems.forEach((btn, idx) => {
         btn.addEventListener('click', () => {
           const tabId = btn.getAttribute('data-tab');
+          const tabIndex = Number(btn.getAttribute('data-index') ?? idx);
+
           navItems.forEach(item => item.classList.remove('active'));
           btn.classList.add('active');
+
+          if (navGlider) {
+            navGlider.style.transform = `translateX(${tabIndex * 100}%)`;
+          }
 
           document.querySelectorAll('.tab-content').forEach(tab => {
             tab.classList.remove('active');
@@ -2926,7 +2949,6 @@ service cloud.firestore {
         showToast('Destinasi dipulihkan ke asal.');
       });
 
-      // Muat naik & mampatkan gambar Base64 secara automatik supaya tidak ditolak oleh Firebase
       const fileInput = document.getElementById('crud-img-file');
       fileInput.addEventListener('change', async (e) => {
         const file = e.target.files[0];
@@ -2999,7 +3021,6 @@ service cloud.firestore {
         });
       });
 
-      // Inline Service Worker registration for PWA offline readiness
       if ('serviceWorker' in navigator) {
         const swCode = `
           const CACHE_NAME = 'jelajah-taiping-cache-v2';
