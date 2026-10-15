@@ -10,8 +10,12 @@
   <meta name="apple-mobile-web-app-title" content="Jelajah Taiping">
   <title>Jelajah Taiping · Bandar Warisan</title>
 
-  <!-- PWA Manifest Inline (Data URI) -->
-  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Jelajah%20Taiping%20-%20Bandar%20Warisan%22%2C%22short_name%22%3A%22JelajahTaiping%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%231b4332%22%2C%22theme_color%22%3A%22%231b4332%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%253E%253Crect%20width%3D'100'%20height%3D'33.3'%20fill%3D'%23ffffff'%2F%253E%253Crect%20y%3D'33.3'%20width%3D'100'%20height%3D'33.3'%20fill%3D'%23f7d117'%2F%253E%253Crect%20y%3D'66.6'%20width%3D'100'%20height%3D'33.4'%20fill%3D'%23000000'%2F%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+  <!-- App Favicon & Apple Touch Icons -->
+  <link rel="icon" type="image/png" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,fit=crop/Awv9Xnv5aJHr8G9w/grouped_my_taiping_living_logo-removebg-preview-m7Vba6J36wsXOe0G.png">
+  <link rel="apple-touch-icon" href="https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=375,fit=crop/Awv9Xnv5aJHr8G9w/grouped_my_taiping_living_logo-removebg-preview-m7Vba6J36wsXOe0G.png">
+
+  <!-- PWA Manifest Inline (Data URI) dengan Ikon Baharu -->
+  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Jelajah%20Taiping%20-%20Bandar%20Warisan%22%2C%22short_name%22%3A%22JelajahTaiping%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%231b4332%22%2C%22theme_color%22%3A%22%231b4332%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fassets.zyrosite.com%2Fcdn-cgi%2Fimage%2Fformat%3Dauto%2Cw%3D375%2Cfit%3Dcrop%2FAwv9Xnv5aJHr8G9w%2Fgrouped_my_taiping_living_logo-removebg-preview-m7Vba6J36wsXOe0G.png%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any%20maskable%22%7D%2C%7B%22src%22%3A%22https%3A%2F%2Fassets.zyrosite.com%2Fcdn-cgi%2Fimage%2Fformat%3Dauto%2Cw%3D375%2Cfit%3Dcrop%2FAwv9Xnv5aJHr8G9w%2Fgrouped_my_taiping_living_logo-removebg-preview-m7Vba6J36wsXOe0G.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
 
   <!-- Leaflet CSS & JS for Interactive Map -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
@@ -122,7 +126,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: calc(12px + var(--safe-top)) 18px 12px 18px;
+      padding: calc(12px + var(--safe-top)) 16px 12px 16px;
       background: rgba(247, 249, 253, 0.88);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -133,19 +137,19 @@
     .brand-group {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .brand-emblems-cluster {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
 
     .perak-header-flag {
-      width: 32px;
-      height: 22px;
-      border-radius: 8px;
+      width: 30px;
+      height: 20px;
+      border-radius: 7px;
       overflow: hidden;
       display: flex;
       border: 2px solid #ffffff;
@@ -163,9 +167,9 @@
     }
 
     .brand-emblem {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
+      width: 38px;
+      height: 38px;
+      border-radius: 13px;
       background: #ffffff;
       display: flex;
       align-items: center;
@@ -188,40 +192,89 @@
 
     .brand-title {
       font-family: 'Cinzel', serif;
-      font-size: 1.18rem;
+      font-size: 1.08rem;
       font-weight: 700;
       color: #1e3a2b;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.4px;
       line-height: 1.1;
       text-shadow: 1px 1px 0px rgba(255,255,255,0.8);
     }
 
     .brand-subtitle {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: 700;
       color: #2a9d8f;
-      letter-spacing: 1px;
+      letter-spacing: 0.8px;
       text-transform: uppercase;
     }
 
     .header-actions {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
+    }
+
+    /* Cloud Sync Status Pill */
+    .sync-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: var(--radius-full);
+      border: 1.5px solid #ffffff;
+      background: #f1f5f9;
+      color: #475569;
+      cursor: pointer;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.08);
+      transition: all 0.2s ease;
+    }
+
+    .sync-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #94a3b8;
+    }
+
+    .sync-badge.online {
+      background: #ecfdf5;
+      color: #047857;
+    }
+    .sync-badge.online .sync-dot {
+      background: #10b981;
+      box-shadow: 0 0 6px #10b981;
+    }
+
+    .sync-badge.warning {
+      background: #fffbeb;
+      color: #b45309;
+    }
+    .sync-badge.warning .sync-dot {
+      background: #f59e0b;
+    }
+
+    .sync-badge.error {
+      background: #fef2f2;
+      color: #b91c1c;
+    }
+    .sync-badge.error .sync-dot {
+      background: #ef4444;
     }
 
     .btn-admin {
       background: linear-gradient(135deg, #e0f2fe, #bae6fd);
       color: #0369a1;
       border: 2px solid #ffffff;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      padding: 7px 16px;
+      padding: 6px 13px;
       border-radius: var(--radius-full);
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
       box-shadow: 4px 4px 10px rgba(147, 197, 253, 0.45),
                   -3px -3px 8px rgba(255, 255, 255, 0.9),
@@ -458,7 +511,6 @@
     .card-media-wrap {
       position: relative;
       height: 195px;
-      width: 100%;
       background: #e2e8f0;
       overflow: hidden;
       border-radius: 26px 26px 16px 16px;
@@ -1028,18 +1080,19 @@
       pointer-events: none;
     }
 
+    /* Susunan Bersebelahan (Side-by-Side) Jata Negeri Perak & Bendera Negeri Perak */
     .splash-emblem {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
-      gap: 16px;
-      margin-bottom: 22px;
+      gap: 20px;
+      margin-bottom: 26px;
     }
 
     .perak-official-crest-box {
-      width: 110px;
-      height: 110px;
+      width: 105px;
+      height: 105px;
       border-radius: 50%;
       background: radial-gradient(circle, #ffffff 65%, #f4f1ea 100%);
       border: 4px solid #ffffff;
@@ -1051,6 +1104,7 @@
       animation: pulseGlow 2.5s infinite;
       padding: 10px;
       overflow: hidden;
+      flex-shrink: 0;
     }
 
     .perak-official-crest-box img {
@@ -1061,15 +1115,16 @@
     }
 
     .perak-flag-card {
-      width: 92px;
-      height: 54px;
-      border-radius: 12px;
+      width: 112px;
+      height: 68px;
+      border-radius: 14px;
       overflow: hidden;
       display: flex;
       box-shadow: 8px 8px 20px rgba(0,0,0,0.35),
                   inset 1px 1px 2px rgba(255,255,255,0.6);
-      border: 3px solid rgba(255,255,255,0.95);
+      border: 3.5px solid rgba(255,255,255,0.95);
       background: #000;
+      flex-shrink: 0;
     }
 
     .perak-flag-card img {
@@ -1201,7 +1256,7 @@
     }
 
     .sheet-title {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 800;
       color: var(--primary-dark);
     }
@@ -1258,13 +1313,35 @@
       font-weight: 700;
       box-shadow: 3px 3px 8px rgba(42, 157, 143, 0.35);
     }
+
+    .diag-box {
+      background: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 14px;
+      border: 2px solid #e2e8f0;
+      margin-bottom: 12px;
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .code-snippet {
+      background: #1e293b;
+      color: #a7f3d0;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-family: monospace;
+      font-size: 0.74rem;
+      overflow-x: auto;
+      margin-top: 6px;
+      user-select: text;
+    }
   </style>
 </head>
 <body>
 
   <div id="splash-screen" class="splash-overlay">
     <div class="splash-emblem">
-      <!-- Jata Rasmi Kerajaan Negeri Perak Sebenar -->
+      <!-- Jata Rasmi Kerajaan Negeri Perak -->
       <div class="perak-official-crest-box" title="Jata Rasmi Kerajaan Negeri Perak">
         <img 
           src="https://images.seeklogo.com/logo-png/28/2/jata-negeri-perak-logo-png_seeklogo-285305.png" 
@@ -1272,8 +1349,7 @@
           loading="eager"
           onerror="this.onerror=null; this.src='https://placehold.co/120x120/1b4332/d4af37?text=Jata+Perak';">
       </div>
-
-      <!-- Bendera Negeri Perak Sebenar -->
+      <!-- Bendera Negeri Perak Bersebelahan -->
       <div class="perak-flag-card" title="Bendera Negeri Perak Darul Ridzuan">
         <img 
           src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/Flag_of_Perak.svg/1280px-Flag_of_Perak.svg.png?utm_source=ms.wikipedia.org&utm_campaign=index&utm_content=thumbnail" 
@@ -1293,14 +1369,12 @@
     <header class="top-header">
       <div class="brand-group">
         <div class="brand-emblems-cluster">
-          <!-- Bendera Perak Mini Header -->
           <div class="perak-header-flag" title="Bendera Negeri Perak">
             <img 
               src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/Flag_of_Perak.svg/1280px-Flag_of_Perak.svg.png?utm_source=ms.wikipedia.org&utm_campaign=index&utm_content=thumbnail" 
               alt="Bendera Perak"
               onerror="this.onerror=null; this.src='https://placehold.co/60x40/ffffff/000000?text=Perak';">
           </div>
-          <!-- Jata Rasmi Kerajaan Negeri Perak Mini Emblem -->
           <div class="brand-emblem" title="Jata Kerajaan Negeri Perak">
             <img 
               src="https://images.seeklogo.com/logo-png/28/2/jata-negeri-perak-logo-png_seeklogo-285305.png" 
@@ -1314,8 +1388,14 @@
         </div>
       </div>
       <div class="header-actions">
+        <!-- Lencana Status Cloud Sync (Boleh diklik untuk Diagnostik) -->
+        <button id="btn-sync-status" class="sync-badge" onclick="openModal('modal-sync-diag')" title="Klik untuk info status Cloud Sync">
+          <span class="sync-dot"></span>
+          <span id="sync-status-label">Menyambung...</span>
+        </button>
+
         <button id="btn-open-admin" class="btn-admin" aria-label="Akses Panel Admin">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
           </svg>
@@ -1325,7 +1405,6 @@
     </header>
 
     <main id="tab-home" class="tab-content active">
-      <!-- Iconic Taiping Hero -->
       <section class="hero-banner" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/9c/TaipingLake.jpg?utm_source=ms.wikipedia.org&utm_campaign=index&utm_content=original');">
         <div class="hero-banner-inner">
           <div class="hero-badge">
@@ -1339,7 +1418,6 @@
         </div>
       </section>
 
-      <!-- Search Destination -->
       <section class="search-box-wrap">
         <div class="search-container">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -1350,7 +1428,6 @@
         </div>
       </section>
 
-      <!-- Category Filter Pills -->
       <section class="category-scroll" id="category-pills-bar">
         <button class="cat-pill active" data-cat="ALL">Semua</button>
         <button class="cat-pill" data-cat="Nature">🌿 Nature</button>
@@ -1361,7 +1438,6 @@
         <button class="cat-pill" data-cat="BOOKMARKED">❤️ Kegemaran</button>
       </section>
 
-      <!-- Destination Cards List -->
       <section class="section-title-wrap">
         <h3 class="section-title" id="destination-listing-title">Destinasi Menarik</h3>
         <span class="section-subtitle" id="destination-count-badge">0 Tempat</span>
@@ -1544,7 +1620,7 @@
         <button class="btn-sheet-close" onclick="closeModal('modal-admin-login')">✕</button>
       </div>
       <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px;">
-        Gunakan ID Demo: <b>taipinglocal</b> | Kata Laluan: <b>Taipinglocal08</b>
+        ID Lalai: <b>taipinglocal</b> | Kata Laluan: <b>Taipinglocal08</b>
       </p>
       <form id="form-admin-login">
         <div class="form-group">
@@ -1619,7 +1695,7 @@
           </div>
 
           <div class="form-group">
-            <label for="crud-img-file">Muat Naik Gambar (Base64)</label>
+            <label for="crud-img-file">Muat Naik Gambar (Auto-Mampat untuk Cloud Sync)</label>
             <input type="file" id="crud-img-file" class="form-control" accept="image/*">
             <input type="hidden" id="crud-img-base64">
             <div id="img-preview-box" style="margin-top: 8px; width: 100%; height: 110px; border-radius: var(--radius-sm); background: #eee; overflow: hidden; display: none;">
@@ -1647,15 +1723,73 @@
     </div>
   </div>
 
+  <!-- Modal 4: Cloud Sync Diagnostic & Troubleshooting -->
+  <div id="modal-sync-diag" class="modal-overlay">
+    <div class="modal-sheet" style="max-height: 90vh;">
+      <div class="sheet-handle"></div>
+      <div class="sheet-header">
+        <h3 class="sheet-title">Diagnostik Penyelarasan (Cloud Sync)</h3>
+        <button class="btn-sheet-close" onclick="closeModal('modal-sync-diag')">✕</button>
+      </div>
+
+      <div class="diag-box">
+        <div style="font-weight: 800; color: var(--primary-dark); margin-bottom: 4px;">Status Sambungan Semasa:</div>
+        <div id="diag-status-detail" style="font-weight: 600; color: #047857;">Menyemak sambungan ke Firebase...</div>
+        <div id="diag-error-log" style="margin-top: 6px; font-size: 0.74rem; color: #b91c1c; display: none;"></div>
+      </div>
+
+      <div class="diag-box">
+        <div style="font-weight: 800; color: var(--primary-dark); margin-bottom: 6px;">Kenapa Data Tidak Boleh Sync Sebelum Ini?</div>
+        <ul style="padding-left: 18px; color: #334155; display: flex; flex-direction: column; gap: 6px;">
+          <li>
+            <b>1. Anonymous Auth Belum Diaktifkan:</b> Jika <i>Anonymous Sign-in</i> tidak diaktifkan dalam Firebase Console, kod asal berhenti serta-merta dan tidak memulakan penyelarasan pangkalan data. <i>(Kini diperbaiki: Aplikasi terus menyambung ke DB walaupun tanpa Auth)</i>.
+          </li>
+          <li>
+            <b>2. Realtime Database vs Firestore:</b> Konfigurasi anda mempunyai URL <code>firebasedatabase.app</code> (Realtime Database). Kod kini menyokong <b>kedua-dua</b> Realtime Database & Cloud Firestore secara serentak!
+          </li>
+          <li>
+            <b>3. Saiz Gambar Base64 Terlalu Besar:</b> Gambar kamera telefon (>1MB) akan ditolak oleh pangkalan data. <i>(Kini diperbaiki: Gambar dimampatkan secara automatik kepada saiz optimum sebelum dihantar)</i>.
+          </li>
+        </ul>
+      </div>
+
+      <div class="diag-box">
+        <div style="font-weight: 800; color: var(--primary-dark); margin-bottom: 4px;">Tetapan Firebase Console (Jika Masih Disekat):</div>
+        <p style="font-size: 0.75rem; color: #475569;">Jika status menunjukkan <b>"Permission Denied"</b>, buka <a href="https://console.firebase.google.com/" target="_blank" style="color:#0369a1; font-weight:700;">Firebase Console</a> projek <code>taipinglocalexplorer</code> dan pastikan:</p>
+        
+        <div style="margin-top: 8px; font-weight: 700; font-size: 0.75rem;">A. Realtime Database Rules:</div>
+        <pre class="code-snippet">{
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}</pre>
+
+        <div style="margin-top: 8px; font-weight: 700; font-size: 0.75rem;">B. Cloud Firestore Rules:</div>
+        <pre class="code-snippet">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}</pre>
+      </div>
+
+      <button class="btn-primary" onclick="forcePushAllToCloud()">
+        🔄 Paksa Muat Naik Semua Data Tempatan ke Cloud
+      </button>
+    </div>
+  </div>
+
   <!-- Custom In-App Notification Toast -->
   <div id="toast-msg" style="position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%) translateY(50px); background: #133324; color: #fff; padding: 10px 18px; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600; opacity: 0; pointer-events: none; transition: all 0.3s ease; z-index: 9999; box-shadow: 0 4px 14px rgba(0,0,0,0.2); border: 1px solid var(--accent-gold);">
     Mesej Notifikasi
   </div>
 
-  <!-- Firebase Modular SDK & Integration Script -->
+  <!-- Firebase Modular SDK (Firestore + Realtime Database + Auth) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
     import { 
       getAuth, 
       signInAnonymously, 
@@ -1667,11 +1801,16 @@
       doc, 
       setDoc, 
       deleteDoc, 
-      onSnapshot, 
-      getDocs 
+      onSnapshot 
     } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    import {
+      getDatabase,
+      ref,
+      set,
+      remove,
+      onValue
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
 
-    // Konfigurasi rasmi Firebase daripada input pengguna
     const envFirebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
     const firebaseConfig = envFirebaseConfig || {
       apiKey: "AIzaSyAazKPCDGBpBFMZPd03qXkwAD4VP-4XTnU",
@@ -1686,22 +1825,23 @@
 
     const targetAppId = typeof __app_id !== 'undefined' ? __app_id : (firebaseConfig.projectId || 'taipinglocalexplorer');
 
-    // Inisialisasi Firebase & Perkhidmatan
     const app = initializeApp(firebaseConfig);
-    let analytics = null;
-    try {
-      analytics = getAnalytics(app);
-    } catch (e) {
-      console.warn("Analytics tidak disokong dalam persekitaran semasa:", e);
-    }
-
     const auth = getAuth(app);
     const db = getFirestore(app);
+    
+    let rtdb = null;
+    try {
+      if (firebaseConfig.databaseURL) {
+        rtdb = getDatabase(app);
+      }
+    } catch (e) {
+      console.warn("Realtime DB init warning:", e);
+    }
 
-    // Dedahkan instans Firebase kepada skrip aplikasi
     window.FB_APP = app;
     window.FB_AUTH = auth;
     window.FB_DB = db;
+    window.FB_RTDB = rtdb;
     window.FB_APP_ID = targetAppId;
     window.FB_STORE = {
       collection,
@@ -1709,9 +1849,12 @@
       setDoc,
       deleteDoc,
       onSnapshot,
-      getDocs,
       signInAnonymously,
-      signInWithCustomToken
+      signInWithCustomToken,
+      ref,
+      set,
+      remove,
+      onValue
     };
 
     window.dispatchEvent(new CustomEvent('firebase-ready'));
@@ -1723,8 +1866,8 @@
     const STORAGE_KEY_ITINERARY = 'jelajah_taiping_itinerary_v1';
     const STORAGE_KEY_COMMUNITY = 'jelajah_taiping_community_v1';
     const STORAGE_KEY_AUTH = 'jelajah_taiping_auth_state_v1';
+    const STORAGE_KEY_DEVICE_ID = 'jelajah_taiping_device_uid_v1';
 
-    // Curated iconic destinations of Taiping with accurate coordinates & photos
     const DEFAULT_DESTINATIONS = [
       {
         id: 'dest-1',
@@ -1801,7 +1944,8 @@
         date: '2 jam yang lalu',
         content: 'Pagi tadi jogging di Taman Tasik sekitar jam 7 pagi, pantulan kabus Bukit Larut atas air tasik betul-betul magis! Jangan lupa singgah makan Roti Bakar Telur Goyang di medan selera berdekatan.',
         likes: 18,
-        liked: false
+        liked: false,
+        timestamp: Date.now() - 7200000
       },
       {
         id: 'post-2',
@@ -1809,11 +1953,11 @@
         date: 'Semalam',
         content: 'Muzium Perak Taiping sangat kemas dan bersih! Anak-anak sangat teruja tengok koleksi sejarah dan rangka haiwan prasejarah. Tiket masuk sangat berpatutan.',
         likes: 24,
-        liked: true
+        liked: true,
+        timestamp: Date.now() - 86400000
       }
     ];
 
-    /* App state object */
     let destinations = [];
     let bookmarks = new Set();
     let itineraries = [];
@@ -1821,110 +1965,220 @@
     let isAdminLoggedIn = false;
     let activeFilter = 'ALL';
     let searchQuery = '';
+    let activeUserId = null;
 
-    // Leaflet map instance & markers layer
     let map = null;
     let markerGroup = null;
     let adminPinMap = null;
     let adminPinMarker = null;
 
-    // Helper pautan koleksi mematuhi peraturan struktur path awam / peribadi
-    function getPublicCollectionPath(colName) {
-      const appId = window.FB_APP_ID || 'taipinglocalexplorer';
-      return `artifacts/${appId}/public/data/${colName}`;
+    // Dapatkan atau cipta ID unik peranti sekiranya Firebase Auth tidak diaktifkan
+    function getOrCreateDeviceId() {
+      let devId = localStorage.getItem(STORAGE_KEY_DEVICE_ID);
+      if (!devId) {
+        devId = 'user_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now();
+        localStorage.setItem(STORAGE_KEY_DEVICE_ID, devId);
+      }
+      return devId;
     }
 
-    function getUserCollectionPath(colName, uId) {
-      const appId = window.FB_APP_ID || 'taipinglocalexplorer';
-      return `artifacts/${appId}/users/${uId}/${colName}`;
+    // Kemas kini lencana status Cloud Sync di bahagian atas
+    function updateSyncStatusUI(state, labelText, detailMsg, errorMsg = '') {
+      const badge = document.getElementById('btn-sync-status');
+      const label = document.getElementById('sync-status-label');
+      const diagDetail = document.getElementById('diag-status-detail');
+      const diagErr = document.getElementById('diag-error-log');
+
+      if (!badge || !label) return;
+      badge.className = 'sync-badge ' + state;
+      label.textContent = labelText;
+
+      if (diagDetail) {
+        diagDetail.textContent = detailMsg;
+        diagDetail.style.color = state === 'online' ? '#047857' : (state === 'warning' ? '#b45309' : '#b91c1c');
+      }
+      if (diagErr) {
+        if (errorMsg) {
+          diagErr.style.display = 'block';
+          diagErr.textContent = 'Log Ralat: ' + errorMsg;
+        } else {
+          diagErr.style.display = 'none';
+        }
+      }
     }
 
-    function initFirebaseSync() {
-      if (!window.FB_AUTH || !window.FB_DB) return;
-      const { auth, db, store } = { 
-        auth: window.FB_AUTH, 
-        db: window.FB_DB, 
-        store: window.FB_STORE 
-      };
-
-      const customToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-      const authPromise = customToken 
-        ? store.signInWithCustomToken(auth, customToken) 
-        : store.signInAnonymously(auth);
-
-      authPromise.then((userCredential) => {
-        const user = userCredential.user;
-        const currentUid = user.uid;
-
-        // 1. Dengar data Destinasi masa nyata daripada Cloud Firestore
-        const destColRef = store.collection(db, 'artifacts', window.FB_APP_ID, 'public', 'data', 'destinations');
-        store.onSnapshot(destColRef, (snapshot) => {
-          if (!snapshot.empty) {
-            const remoteDests = [];
-            snapshot.forEach(docSnap => {
-              remoteDests.push(docSnap.data());
-            });
-            destinations = remoteDests;
-            saveDestinationsLocal();
-            renderDestinations();
-            populateItineraryDestOptions();
-            if (map) renderMapMarkers(activeFilter);
-            if (isAdminLoggedIn) renderAdminList();
-          } else {
-            // Seed pangkalan data buat kali pertama jika masih kosong
-            DEFAULT_DESTINATIONS.forEach(async (d) => {
-              const docRef = store.doc(db, 'artifacts', window.FB_APP_ID, 'public', 'data', 'destinations', d.id);
-              await store.setDoc(docRef, d).catch(() => {});
-            });
-          }
-        }, (err) => {
-          console.warn("Firestore Destinasi ralat/mod sandaran:", err);
-        });
-
-        // 2. Dengar kiriman Komuniti masa nyata
-        const commColRef = store.collection(db, 'artifacts', window.FB_APP_ID, 'public', 'data', 'community');
-        store.onSnapshot(commColRef, (snapshot) => {
-          if (!snapshot.empty) {
-            const remoteComm = [];
-            snapshot.forEach(docSnap => {
-              remoteComm.push(docSnap.data());
-            });
-            // Susun secara memori
-            remoteComm.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
-            communityPosts = remoteComm;
-            saveCommunityLocal();
-            renderCommunityFeed();
-          } else {
-            // Seed pangkalan data komuniti awal
-            DEFAULT_COMMUNITY.forEach(async (c, idx) => {
-              const dataWithTs = { ...c, timestamp: Date.now() - (idx * 3600000) };
-              const docRef = store.doc(db, 'artifacts', window.FB_APP_ID, 'public', 'data', 'community', c.id);
-              await store.setDoc(docRef, dataWithTs).catch(() => {});
-            });
-          }
-        }, (err) => {
-          console.warn("Firestore Komuniti ralat/mod sandaran:", err);
-        });
-
-        // 3. Dengar data Itinerary peribadi pengguna
-        const itinColRef = store.collection(db, 'artifacts', window.FB_APP_ID, 'users', currentUid, 'itineraries');
-        store.onSnapshot(itinColRef, (snapshot) => {
-          if (!snapshot.empty) {
-            const remoteItin = [];
-            snapshot.forEach(docSnap => {
-              remoteItin.push(docSnap.data());
-            });
-            itineraries = remoteItin;
-            saveItineraryLocal();
-            renderItinerary();
-          }
-        }, (err) => {
-          console.warn("Firestore Itinerary ralat/mod sandaran:", err);
-        });
-
-      }).catch(err => {
-        console.warn("Firebase Auth sandaran aktif:", err);
+    // Fungsi pemampatan gambar supaya tidak melebihi had 1MB Firestore/RTDB
+    function compressImageFile(file, maxWidth = 800, quality = 0.72) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
+            if (width > maxWidth) {
+              height = Math.round((height * maxWidth) / width);
+              width = maxWidth;
+            }
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            resolve(canvas.toDataURL('image/jpeg', quality));
+          };
+          img.onerror = reject;
+          img.src = event.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
       });
+    }
+
+    // Inisialisasi Penyelarasan Dwi-Enjin (Realtime DB + Firestore)
+    async function initFirebaseSync() {
+      if (!window.FB_STORE) return;
+      const store = window.FB_STORE;
+      const auth = window.FB_AUTH;
+      const db = window.FB_DB;
+      const rtdb = window.FB_RTDB;
+
+      updateSyncStatusUI('warning', 'Menyambung...', 'Sedang mengesahkan sesi dan pangkalan data Firebase...');
+
+      // 1. Cuba log masuk Anonymous Auth, tetapi JANGAN sekat sync jika gagal!
+      try {
+        const customToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        const cred = customToken 
+          ? await store.signInWithCustomToken(auth, customToken) 
+          : await store.signInAnonymously(auth);
+        activeUserId = cred.user.uid;
+      } catch (authErr) {
+        console.warn("Firebase Auth tidak aktif (Guna ID Peranti):", authErr.message);
+        activeUserId = getOrCreateDeviceId();
+      }
+
+      let firestoreConnected = false;
+      let rtdbConnected = false;
+      let lastErrorMsg = '';
+
+      // 2. Pendengar Realtime Database (RTDB) - Sangat pantas jika databaseURL wujud
+      if (rtdb) {
+        try {
+          const destRtdbRef = store.ref(rtdb, `taiping_data/destinations`);
+          store.onValue(destRtdbRef, (snapshot) => {
+            rtdbConnected = true;
+            updateSyncStatusUI('online', 'Cloud Aktif', 'Disambungkan secara masa nyata melalui Firebase Realtime Database.');
+            const val = snapshot.val();
+            if (val && Object.keys(val).length > 0) {
+              destinations = Object.values(val);
+              saveDestinationsLocal();
+              renderDestinations();
+              populateItineraryDestOptions();
+              if (map) renderMapMarkers(activeFilter);
+              if (isAdminLoggedIn) renderAdminList();
+            } else {
+              // Seed data awal ke RTDB
+              DEFAULT_DESTINATIONS.forEach(d => {
+                store.set(store.ref(rtdb, `taiping_data/destinations/${d.id}`), d).catch(() => {});
+              });
+            }
+          }, (err) => {
+            lastErrorMsg = err.message;
+            if (!firestoreConnected) {
+              updateSyncStatusUI('error', 'Ralat Rules', 'Sambungan ke Realtime Database ditolak oleh Security Rules.', err.message);
+            }
+          });
+
+          const commRtdbRef = store.ref(rtdb, `taiping_data/community`);
+          store.onValue(commRtdbRef, (snapshot) => {
+            const val = snapshot.val();
+            if (val && Object.keys(val).length > 0) {
+              const list = Object.values(val);
+              list.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+              communityPosts = list;
+              saveCommunityLocal();
+              renderCommunityFeed();
+            } else {
+              DEFAULT_COMMUNITY.forEach(c => {
+                store.set(store.ref(rtdb, `taiping_data/community/${c.id}`), c).catch(() => {});
+              });
+            }
+          });
+
+          const itinRtdbRef = store.ref(rtdb, `taiping_data/users/${activeUserId}/itineraries`);
+          store.onValue(itinRtdbRef, (snapshot) => {
+            const val = snapshot.val();
+            if (val) {
+              itineraries = Object.values(val);
+              saveItineraryLocal();
+              renderItinerary();
+            }
+          });
+        } catch (rtdbErr) {
+          console.warn("RTDB Listener error:", rtdbErr);
+        }
+      }
+
+      // 3. Pendengar Cloud Firestore (Serentak / Sandaran Utama)
+      if (db) {
+        try {
+          const destColRef = store.collection(db, 'artifacts', window.FB_APP_ID, 'public', 'data', 'destinations');
+          store.onSnapshot(destColRef, (snapshot) => {
+            firestoreConnected = true;
+            updateSyncStatusUI('online', 'Cloud Aktif', 'Disambungkan secara masa nyata melalui Cloud Firestore.');
+            if (!snapshot.empty) {
+              const remoteDests = [];
+              snapshot.forEach(docSnap => remoteDests.push(docSnap.data()));
+              destinations = remoteDests;
+              saveDestinationsLocal();
+              renderDestinations();
+              populateItineraryDestOptions();
+              if (map) renderMapMarkers(activeFilter);
+              if (isAdminLoggedIn) renderAdminList();
+            } else if (!rtdbConnected) {
+              DEFAULT_DESTINATIONS.forEach(async (d) => {
+                const docRef = store.doc(db, 'artifacts', window.FB_APP_ID, 'public', 'data', 'destinations', d.id);
+                await store.setDoc(docRef, d).catch(() => {});
+              });
+            }
+          }, (err) => {
+            lastErrorMsg = err.message;
+            if (!rtdbConnected) {
+              updateSyncStatusUI('error', 'Sekatan Cloud', 'Pangkalan data memerlukan kebenaran (Rules) atau Auth diaktifkan.', err.message);
+            }
+          });
+
+          const commColRef = store.collection(db, 'artifacts', window.FB_APP_ID, 'public', 'data', 'community');
+          store.onSnapshot(commColRef, (snapshot) => {
+            if (!snapshot.empty) {
+              const remoteComm = [];
+              snapshot.forEach(docSnap => remoteComm.push(docSnap.data()));
+              remoteComm.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+              communityPosts = remoteComm;
+              saveCommunityLocal();
+              renderCommunityFeed();
+            } else if (!rtdbConnected) {
+              DEFAULT_COMMUNITY.forEach(async (c) => {
+                const docRef = store.doc(db, 'artifacts', window.FB_APP_ID, 'public', 'data', 'community', c.id);
+                await store.setDoc(docRef, c).catch(() => {});
+              });
+            }
+          }, () => {});
+
+          const itinColRef = store.collection(db, 'artifacts', window.FB_APP_ID, 'users', activeUserId, 'itineraries');
+          store.onSnapshot(itinColRef, (snapshot) => {
+            if (!snapshot.empty) {
+              const remoteItin = [];
+              snapshot.forEach(docSnap => remoteItin.push(docSnap.data()));
+              itineraries = remoteItin;
+              saveItineraryLocal();
+              renderItinerary();
+            }
+          }, () => {});
+        } catch (fsErr) {
+          console.warn("Firestore Listener error:", fsErr);
+        }
+      }
     }
 
     function initAdminPinMap() {
@@ -1956,7 +2210,7 @@
         draggable: true
       }).addTo(adminPinMap);
 
-      adminPinMarker.on('dragend', function (e) {
+      adminPinMarker.on('dragend', function () {
         const position = adminPinMarker.getLatLng();
         document.getElementById('crud-lat').value = position.lat.toFixed(5);
         document.getElementById('crud-lng').value = position.lng.toFixed(5);
@@ -2019,59 +2273,119 @@
       localStorage.setItem(STORAGE_KEY_COMMUNITY, JSON.stringify(communityPosts));
     }
 
-    // Penyelarasan Destinasi ke Firebase
+    // Penyelarasan Destinasi ke Cloud (RTDB + Firestore)
     async function syncDestinationToFirebase(destItem) {
-      if (!window.FB_DB || !window.FB_STORE || !window.FB_AUTH?.currentUser) return;
-      try {
-        const docRef = window.FB_STORE.doc(window.FB_DB, 'artifacts', window.FB_APP_ID, 'public', 'data', 'destinations', destItem.id);
-        await window.FB_STORE.setDoc(docRef, destItem);
-      } catch (e) {
-        console.error("Gagal selaras destinasi ke Firebase:", e);
+      if (!window.FB_STORE) return;
+      const store = window.FB_STORE;
+      let synced = false;
+
+      if (window.FB_RTDB) {
+        try {
+          await store.set(store.ref(window.FB_RTDB, `taiping_data/destinations/${destItem.id}`), destItem);
+          synced = true;
+        } catch (e) {
+          console.warn("RTDB gagal simpan destinasi:", e.message);
+        }
+      }
+      if (window.FB_DB) {
+        try {
+          const docRef = store.doc(window.FB_DB, 'artifacts', window.FB_APP_ID, 'public', 'data', 'destinations', destItem.id);
+          await store.setDoc(docRef, destItem);
+          synced = true;
+        } catch (e) {
+          console.warn("Firestore gagal simpan destinasi:", e.message);
+        }
+      }
+
+      if (synced) {
+        updateSyncStatusUI('online', 'Cloud Aktif', 'Data berjaya diselaraskan ke Cloud.');
       }
     }
 
     async function removeDestinationFromFirebase(destId) {
-      if (!window.FB_DB || !window.FB_STORE || !window.FB_AUTH?.currentUser) return;
-      try {
-        const docRef = window.FB_STORE.doc(window.FB_DB, 'artifacts', window.FB_APP_ID, 'public', 'data', 'destinations', destId);
-        await window.FB_STORE.deleteDoc(docRef);
-      } catch (e) {
-        console.error("Gagal padam destinasi di Firebase:", e);
+      if (!window.FB_STORE) return;
+      const store = window.FB_STORE;
+      if (window.FB_RTDB) {
+        try {
+          await store.remove(store.ref(window.FB_RTDB, `taiping_data/destinations/${destId}`));
+        } catch (e) {}
+      }
+      if (window.FB_DB) {
+        try {
+          const docRef = store.doc(window.FB_DB, 'artifacts', window.FB_APP_ID, 'public', 'data', 'destinations', destId);
+          await store.deleteDoc(docRef);
+        } catch (e) {}
       }
     }
 
-    // Penyelarasan Itinerary ke Firebase
+    // Penyelarasan Itinerary ke Cloud
     async function syncItineraryToFirebase(itinItem) {
-      const uid = window.FB_AUTH?.currentUser?.uid;
-      if (!window.FB_DB || !window.FB_STORE || !uid) return;
-      try {
-        const docRef = window.FB_STORE.doc(window.FB_DB, 'artifacts', window.FB_APP_ID, 'users', uid, 'itineraries', itinItem.id);
-        await window.FB_STORE.setDoc(docRef, itinItem);
-      } catch (e) {
-        console.error("Gagal selaras itinerary ke Firebase:", e);
+      if (!window.FB_STORE) return;
+      const store = window.FB_STORE;
+      const uid = activeUserId || getOrCreateDeviceId();
+
+      if (window.FB_RTDB) {
+        try {
+          await store.set(store.ref(window.FB_RTDB, `taiping_data/users/${uid}/itineraries/${itinItem.id}`), itinItem);
+        } catch (e) {}
+      }
+      if (window.FB_DB) {
+        try {
+          const docRef = store.doc(window.FB_DB, 'artifacts', window.FB_APP_ID, 'users', uid, 'itineraries', itinItem.id);
+          await store.setDoc(docRef, itinItem);
+        } catch (e) {}
       }
     }
 
     async function removeItineraryFromFirebase(itinId) {
-      const uid = window.FB_AUTH?.currentUser?.uid;
-      if (!window.FB_DB || !window.FB_STORE || !uid) return;
-      try {
-        const docRef = window.FB_STORE.doc(window.FB_DB, 'artifacts', window.FB_APP_ID, 'users', uid, 'itineraries', itinId);
-        await window.FB_STORE.deleteDoc(docRef);
-      } catch (e) {
-        console.error("Gagal padam itinerary di Firebase:", e);
+      if (!window.FB_STORE) return;
+      const store = window.FB_STORE;
+      const uid = activeUserId || getOrCreateDeviceId();
+
+      if (window.FB_RTDB) {
+        try {
+          await store.remove(store.ref(window.FB_RTDB, `taiping_data/users/${uid}/itineraries/${itinId}`));
+        } catch (e) {}
+      }
+      if (window.FB_DB) {
+        try {
+          const docRef = store.doc(window.FB_DB, 'artifacts', window.FB_APP_ID, 'users', uid, 'itineraries', itinId);
+          await store.deleteDoc(docRef);
+        } catch (e) {}
       }
     }
 
-    // Penyelarasan Komuniti ke Firebase
+    // Penyelarasan Komuniti ke Cloud
     async function syncCommunityPostToFirebase(postItem) {
-      if (!window.FB_DB || !window.FB_STORE || !window.FB_AUTH?.currentUser) return;
-      try {
-        const docRef = window.FB_STORE.doc(window.FB_DB, 'artifacts', window.FB_APP_ID, 'public', 'data', 'community', postItem.id);
-        await window.FB_STORE.setDoc(docRef, postItem);
-      } catch (e) {
-        console.error("Gagal selaras post komuniti ke Firebase:", e);
+      if (!window.FB_STORE) return;
+      const store = window.FB_STORE;
+
+      if (window.FB_RTDB) {
+        try {
+          await store.set(store.ref(window.FB_RTDB, `taiping_data/community/${postItem.id}`), postItem);
+        } catch (e) {}
       }
+      if (window.FB_DB) {
+        try {
+          const docRef = store.doc(window.FB_DB, 'artifacts', window.FB_APP_ID, 'public', 'data', 'community', postItem.id);
+          await store.setDoc(docRef, postItem);
+        } catch (e) {}
+      }
+    }
+
+    // Fungsi Paksa Muat Naik Semua Data Tempatan ke Cloud
+    async function forcePushAllToCloud() {
+      showToast('Menghantar semua data ke Cloud...');
+      for (const d of destinations) {
+        await syncDestinationToFirebase(d);
+      }
+      for (const c of communityPosts) {
+        await syncCommunityPostToFirebase(c);
+      }
+      for (const i of itineraries) {
+        await syncItineraryToFirebase(i);
+      }
+      showToast('Selesai menyelaraskan data ke Cloud!');
     }
 
     function showToast(message) {
@@ -2120,10 +2434,11 @@
 
       container.innerHTML = filtered.map(dest => {
         const isFav = bookmarks.has(dest.id);
+        const imgUrl = dest.image || 'https://placehold.co/600x400/1b4332/f4f1ea?text=Taiping+Perak';
         return `
           <article class="card-destination" data-id="${dest.id}">
             <div class="card-media-wrap">
-              <img class="card-img" src="${dest.image}" alt="${dest.name}" loading="lazy" onerror="this.src='https://placehold.co/600x400/1b4332/f4f1ea?text=Taiping+Perak'">
+              <img class="card-img" src="${imgUrl}" alt="${dest.name}" loading="lazy" onerror="this.src='https://placehold.co/600x400/1b4332/f4f1ea?text=Taiping+Perak'">
               <span class="card-category-badge">${dest.category}</span>
               <button class="btn-bookmark ${isFav ? 'bookmarked' : ''}" onclick="toggleBookmark('${dest.id}', event)" aria-label="Simpan destinasi">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="${isFav ? '#e63946' : 'none'}" stroke="${isFav ? '#e63946' : '#374151'}" stroke-width="2">
@@ -2182,7 +2497,7 @@
 
       document.getElementById('detail-title').textContent = dest.name;
       document.getElementById('detail-category').textContent = dest.category;
-      document.getElementById('detail-img').src = dest.image;
+      document.getElementById('detail-img').src = dest.image || 'https://placehold.co/600x400/1b4332/f4f1ea?text=Taiping+Perak';
       document.getElementById('detail-rating').textContent = `⭐ ${dest.rating || '4.8'}`;
       document.getElementById('detail-location').textContent = `📍 ${dest.location}`;
       document.getElementById('detail-desc').textContent = dest.description;
@@ -2201,7 +2516,6 @@
 
     function initMap() {
       if (map) return;
-      // Coordinates of Taiping Lake Garden / Core town
       const taipingCenter = [4.8580, 100.7480];
       map = L.map('taiping-map', {
         zoomControl: false,
@@ -2212,13 +2526,11 @@
         maxZoom: 19
       }).addTo(map);
 
-      // Custom smooth zoom controls
       L.control.zoom({ position: 'bottomright' }).addTo(map);
       markerGroup = L.layerGroup().addTo(map);
 
       renderMapMarkers('ALL');
 
-      // Admin Map Click to pick coordinates
       map.on('click', (e) => {
         if (!isAdminLoggedIn) return;
         const latInput = document.getElementById('crud-lat');
@@ -2242,7 +2554,6 @@
       filtered.forEach(dest => {
         if (!dest.lat || !dest.lng) return;
 
-        // Custom styled marker
         const customIcon = L.divIcon({
           className: 'custom-leaflet-marker',
           html: `
@@ -2396,12 +2707,12 @@
       document.getElementById('crud-loc').value = dest.location;
       document.getElementById('crud-lat').value = dest.lat;
       document.getElementById('crud-lng').value = dest.lng;
-      document.getElementById('crud-img-base64').value = dest.image;
+      document.getElementById('crud-img-base64').value = dest.image || '';
 
       const previewBox = document.getElementById('img-preview-box');
       const previewImg = document.getElementById('img-preview');
-      previewImg.src = dest.image;
-      previewBox.style.display = 'block';
+      previewImg.src = dest.image || '';
+      previewBox.style.display = dest.image ? 'block' : 'none';
 
       document.getElementById('admin-form-heading').textContent = `✏️ Edit: ${dest.name}`;
       document.getElementById('btn-save-crud').textContent = 'Kemas Kini Destinasi';
@@ -2437,7 +2748,6 @@
       showToast('Destinasi berjaya dipadam.');
     }
 
-    /* Modal controls */
     function openModal(modalId) {
       document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
       const target = document.getElementById(modalId);
@@ -2450,15 +2760,13 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      // 1. Load data
       loadFromStorage();
       renderDestinations();
       populateItineraryDestOptions();
       renderItinerary();
       renderCommunityFeed();
 
-      // Dengar sedia ada Firebase jika modul telah dimuatkan
-      if (window.FB_AUTH) {
+      if (window.FB_STORE) {
         initFirebaseSync();
       } else {
         window.addEventListener('firebase-ready', () => {
@@ -2466,18 +2774,15 @@
         }, { once: true });
       }
 
-      // Update admin button UI if already authenticated
       if (isAdminLoggedIn) {
         document.getElementById('admin-status-text').textContent = 'Panel Admin';
       }
 
-      // 2. Dismiss Splash Screen smoothly
       setTimeout(() => {
         const splash = document.getElementById('splash-screen');
         if (splash) splash.classList.add('hidden');
       }, 1900);
 
-      // 3. Tab switching listeners
       const navItems = document.querySelectorAll('.bottom-nav .nav-item');
       navItems.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -2492,7 +2797,6 @@
           const activeTabEl = document.getElementById(tabId);
           if (activeTabEl) activeTabEl.classList.add('active');
 
-          // Lazy load / invalidate map size when Map tab is shown
           if (tabId === 'tab-map') {
             initMap();
             setTimeout(() => {
@@ -2502,7 +2806,6 @@
         });
       });
 
-      // 4. Category filter buttons in Home
       document.querySelectorAll('#category-pills-bar .cat-pill').forEach(pill => {
         pill.addEventListener('click', () => {
           document.querySelectorAll('#category-pills-bar .cat-pill').forEach(p => p.classList.remove('active'));
@@ -2512,14 +2815,12 @@
         });
       });
 
-      // 5. Destination Search input
       const searchBox = document.getElementById('destination-search');
       searchBox.addEventListener('input', (e) => {
         searchQuery = e.target.value.trim();
         renderDestinations();
       });
 
-      // 6. Itinerary creation form
       document.getElementById('form-add-itinerary').addEventListener('submit', (e) => {
         e.preventDefault();
         const day = document.getElementById('itin-day').value;
@@ -2541,7 +2842,6 @@
         document.getElementById('itin-budget').value = '';
       });
 
-      // 7. Community Post submission
       document.getElementById('btn-submit-post').addEventListener('click', () => {
         const authorInput = document.getElementById('comm-author');
         const contentInput = document.getElementById('comm-content');
@@ -2570,7 +2870,6 @@
         showToast('Perkongsian berjaya dihantar!');
       });
 
-      // 8. Admin Button in top header
       document.getElementById('btn-open-admin').addEventListener('click', () => {
         if (isAdminLoggedIn) {
           renderAdminList();
@@ -2584,14 +2883,12 @@
         }
       });
 
-      // 9. Admin Login Form Verification
       document.getElementById('form-admin-login').addEventListener('submit', (e) => {
         e.preventDefault();
         const idVal = document.getElementById('admin-id').value.trim();
         const passVal = document.getElementById('admin-password').value;
         const errElem = document.getElementById('admin-login-error');
 
-        // Credentials required by specification: taipinglocal / Taipinglocal08
         if (idVal === 'taipinglocal' && passVal === 'Taipinglocal08') {
           isAdminLoggedIn = true;
           localStorage.setItem(STORAGE_KEY_AUTH, 'true');
@@ -2610,7 +2907,6 @@
         }
       });
 
-      // 10. Admin Logout
       document.getElementById('btn-admin-logout').addEventListener('click', () => {
         isAdminLoggedIn = false;
         localStorage.setItem(STORAGE_KEY_AUTH, 'false');
@@ -2619,7 +2915,6 @@
         showToast('Log keluar berjaya.');
       });
 
-      // 11. Reset Default Destinations
       document.getElementById('btn-reset-defaults').addEventListener('click', () => {
         destinations = [...DEFAULT_DESTINATIONS];
         saveDestinationsLocal();
@@ -2631,25 +2926,25 @@
         showToast('Destinasi dipulihkan ke asal.');
       });
 
-      // 12. Base64 Image Upload Handler
+      // Muat naik & mampatkan gambar Base64 secara automatik supaya tidak ditolak oleh Firebase
       const fileInput = document.getElementById('crud-img-file');
-      fileInput.addEventListener('change', (e) => {
+      fileInput.addEventListener('change', async (e) => {
         const file = e.target.files[0];
         if (file) {
-          const reader = new FileReader();
-          reader.onload = function(event) {
-            const base64Str = event.target.result;
-            document.getElementById('crud-img-base64').value = base64Str;
+          try {
+            const compressedBase64 = await compressImageFile(file, 800, 0.72);
+            document.getElementById('crud-img-base64').value = compressedBase64;
             const previewBox = document.getElementById('img-preview-box');
             const previewImg = document.getElementById('img-preview');
-            previewImg.src = base64Str;
+            previewImg.src = compressedBase64;
             previewBox.style.display = 'block';
-          };
-          reader.readAsDataURL(file);
+            showToast('Gambar siap dimampatkan untuk Cloud Sync!');
+          } catch (err) {
+            console.error('Gagal memproses gambar:', err);
+          }
         }
       });
 
-      // 13. Admin Destination CRUD Form Submit (Add or Edit)
       document.getElementById('form-destination-crud').addEventListener('submit', (e) => {
         e.preventDefault();
         const crudId = document.getElementById('crud-id').value;
@@ -2659,10 +2954,10 @@
         const location = document.getElementById('crud-loc').value.trim();
         const lat = parseFloat(document.getElementById('crud-lat').value) || 4.8580;
         const lng = parseFloat(document.getElementById('crud-lng').value) || 100.7510;
-        let image = document.getElementById('crud-img-base64').value;
+        let image = document.getElementById('crud-img-base64').value || 'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=700&q=80';
         let targetItem = null;
+
         if (crudId) {
-          // Edit existing
           const index = destinations.findIndex(d => d.id === crudId);
           if (index !== -1) {
             targetItem = { ...destinations[index], name, category, description, location, lat, lng, image };
@@ -2670,7 +2965,6 @@
             showToast('Destinasi berjaya dikemas kini!');
           }
         } else {
-          // Add new destination
           targetItem = {
             id: 'dest-' + Date.now(),
             name,
@@ -2697,7 +2991,6 @@
         if (map) renderMapMarkers('ALL');
       });
 
-      // 14. Close modals on backdrop click
       document.querySelectorAll('.modal-overlay').forEach(overlay => {
         overlay.addEventListener('click', (e) => {
           if (e.target === overlay) {
@@ -2706,10 +2999,10 @@
         });
       });
 
-      // 15. Inline Service Worker registration for PWA offline readiness
+      // Inline Service Worker registration for PWA offline readiness
       if ('serviceWorker' in navigator) {
         const swCode = `
-          const CACHE_NAME = 'jelajah-taiping-cache-v1';
+          const CACHE_NAME = 'jelajah-taiping-cache-v2';
           self.addEventListener('install', (e) => {
             self.skipWaiting();
           });
@@ -2730,4 +3023,3 @@
   </script>
 </body>
 </html>
-
